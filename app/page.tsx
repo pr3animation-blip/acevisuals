@@ -158,6 +158,7 @@ export default function Page() {
 
           {/* Reel card */}
           <div className="reveal reveal-d4 relative">
+            <div data-parallax data-parallax-speed="0.06">
             <div className="group reel-frame hairline border-border bg-card relative aspect-[4/5] overflow-hidden rounded-md">
               <div className="thumb thumb-halo" />
               <div className="absolute inset-0 flex items-center justify-center">
@@ -175,6 +176,7 @@ export default function Page() {
               >
                 <Play size={14} weight="fill" className="translate-x-[1px]" />
               </button>
+            </div>
             </div>
           </div>
 
@@ -199,7 +201,10 @@ export default function Page() {
 
         {/* ---------- SELECTED WORK ---------- */}
         <section id="work" className="pt-16 md:pt-24">
-          <header className="flex items-baseline justify-between pb-6">
+          <header
+            data-reveal
+            className="on-scroll flex items-baseline justify-between pb-6"
+          >
             <h2 className="font-serif text-2xl font-normal tracking-[-0.02em] md:text-3xl">
               Selected <em className="text-primary italic">work</em>
             </h2>
@@ -213,7 +218,9 @@ export default function Page() {
               <a
                 key={tile.title}
                 href={`#work-${i + 1}`}
-                className={`group hairline border-border bg-card relative overflow-hidden rounded-md ${tile.span}`}
+                data-reveal
+                style={{ "--stagger": i } as React.CSSProperties}
+                className={`on-scroll group hairline border-border bg-card relative overflow-hidden rounded-md ${tile.span}`}
               >
                 <div className={`thumb ${tile.thumb}`} aria-hidden />
                 <div className="relative z-10 flex h-full flex-col justify-between p-3.5 md:p-4">
@@ -244,7 +251,7 @@ export default function Page() {
 
         {/* ---------- CASE STUDY ---------- */}
         <section className="mt-20 grid gap-10 py-14 md:mt-28 md:grid-cols-[1fr_1.35fr] md:gap-14 md:py-20">
-          <div>
+          <div data-reveal className="on-scroll">
             <div className="text-primary font-mono text-[10px] tracking-[0.22em] uppercase">
               Case study · 02
             </div>
@@ -276,15 +283,21 @@ export default function Page() {
             </a>
           </div>
 
-          <div className="grid grid-cols-[2fr_1fr] grid-rows-2 gap-2 md:gap-3">
-            <div className="hairline border-border relative row-span-2 overflow-hidden rounded-md">
-              <div className="thumb thumb-blade" />
-            </div>
-            <div className="hairline border-border relative overflow-hidden rounded-md">
-              <div className="thumb thumb-dither" />
-            </div>
-            <div className="hairline border-border relative overflow-hidden rounded-md">
-              <div className="thumb thumb-rings" />
+          <div data-reveal className="on-scroll">
+            <div
+              data-parallax
+              data-parallax-speed="0.08"
+              className="grid grid-cols-[2fr_1fr] grid-rows-2 gap-2 md:gap-3"
+            >
+              <div className="hairline border-border relative row-span-2 overflow-hidden rounded-md">
+                <div className="thumb thumb-blade" />
+              </div>
+              <div className="hairline border-border relative overflow-hidden rounded-md">
+                <div className="thumb thumb-dither" />
+              </div>
+              <div className="hairline border-border relative overflow-hidden rounded-md">
+                <div className="thumb thumb-rings" />
+              </div>
             </div>
           </div>
         </section>
@@ -295,23 +308,27 @@ export default function Page() {
           className="grid gap-10 py-16 md:grid-cols-[0.8fr_1.2fr] md:gap-16 md:py-24"
         >
           <div className="relative">
-            <div className="hairline border-border relative aspect-[4/5] overflow-hidden rounded-md bg-secondary">
-              <div className="thumb-halo absolute inset-0 opacity-70" />
-              <div
-                aria-hidden
-                className="bg-primary/15 absolute inset-[18%] rounded-full"
-              />
-              <div
-                aria-hidden
-                className="bg-primary/10 absolute inset-[8%] rounded-full mix-blend-multiply"
-              />
-              <span className="text-ink-muted absolute bottom-3 left-3 font-mono text-[9px] tracking-[0.2em] uppercase">
-                Portrait · TK
-              </span>
+            <div data-reveal className="on-scroll">
+              <div data-parallax data-parallax-speed="0.05">
+                <div className="hairline border-border relative aspect-[4/5] overflow-hidden rounded-md bg-secondary">
+                  <div className="thumb-halo absolute inset-0 opacity-70" />
+                  <div
+                    aria-hidden
+                    className="bg-primary/15 absolute inset-[18%] rounded-full"
+                  />
+                  <div
+                    aria-hidden
+                    className="bg-primary/10 absolute inset-[8%] rounded-full mix-blend-multiply"
+                  />
+                  <span className="text-ink-muted absolute bottom-3 left-3 font-mono text-[9px] tracking-[0.2em] uppercase">
+                    Portrait · TK
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div>
+          <div data-reveal className="on-scroll">
             <div className="text-primary font-mono text-[10px] tracking-[0.22em] uppercase">
               About · 03
             </div>
@@ -332,10 +349,12 @@ export default function Page() {
                 ["Sim", "Houdini · Embergen"],
                 ["Render", "Octane · Redshift"],
                 ["Finishing", "AE · Resolve"],
-              ].map(([k, v]) => (
+              ].map(([k, v], i) => (
                 <div
                   key={k}
-                  className="hairline border-border rounded-md border p-3"
+                  data-reveal
+                  style={{ "--stagger": i } as React.CSSProperties}
+                  className="on-scroll hairline border-border rounded-md border p-3"
                 >
                   <dt className="text-ink-muted font-mono text-[9px] tracking-[0.18em] uppercase">
                     {k}
@@ -348,7 +367,11 @@ export default function Page() {
         </section>
 
         {/* ---------- CONTACT ---------- */}
-        <section id="contact" className="py-20 text-center md:py-28">
+        <section
+          id="contact"
+          data-reveal
+          className="on-scroll py-20 text-center md:py-28"
+        >
           <div className="text-primary font-mono text-[10px] tracking-[0.22em] uppercase">
             Contact · 04
           </div>

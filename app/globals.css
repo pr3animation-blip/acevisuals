@@ -54,6 +54,9 @@
 
 /* Light — warm paper */
 :root {
+  --ease-out-strong: cubic-bezier(0.2, 0, 0.1, 1);
+  --dur-reveal: 600ms;
+
   --paper: #f7f5ef;
   --ink: #1a1724;
   --ink-muted: #5c5869;
@@ -145,6 +148,7 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     font-optical-sizing: auto;
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground;
@@ -179,7 +183,7 @@
 }
 .reveal {
   opacity: 0;
-  animation: reveal 0.9s cubic-bezier(0.2, 0, 0.1, 1) forwards;
+  animation: reveal 0.9s var(--ease-out-strong) forwards;
 }
 .reveal-d1 {
   animation-delay: 0.08s;
@@ -223,7 +227,7 @@
 .thumb {
   position: absolute;
   inset: 0;
-  transition: transform 600ms cubic-bezier(0.2, 0, 0.1, 1);
+  transition: transform 600ms var(--ease-out-strong);
 }
 .group:hover .thumb {
   transform: scale(1.04);
@@ -361,7 +365,7 @@
     0 30px 64px -28px rgba(26, 23, 36, 0.42),
     0 10px 22px -10px rgba(26, 23, 36, 0.22),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  transition: box-shadow 400ms cubic-bezier(0.2, 0, 0.1, 1), transform 400ms cubic-bezier(0.2, 0, 0.1, 1);
+  transition: box-shadow 400ms var(--ease-out-strong), transform 400ms var(--ease-out-strong);
 }
 .dark .reel-frame {
   box-shadow:
@@ -378,7 +382,7 @@
   background: var(--card);
   color: var(--ink);
   transition:
-    transform 400ms cubic-bezier(0.2, 0, 0.1, 1),
+    transform 400ms var(--ease-out-strong),
     background 200ms ease;
 }
 .group:hover .tile-title {
@@ -391,8 +395,43 @@
   background-repeat: no-repeat;
   background-size: 0% 1px;
   background-position: 0 100%;
-  transition: background-size 320ms cubic-bezier(0.2, 0, 0.1, 1);
+  transition: background-size 320ms var(--ease-out-strong);
 }
 .link-u:hover {
   background-size: 100% 1px;
+}
+
+/* ------- Scroll reveal (toggled by MotionInit) ------- */
+.on-scroll {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity var(--dur-reveal) var(--ease-out-strong),
+    transform var(--dur-reveal) var(--ease-out-strong);
+  transition-delay: calc(var(--stagger, 0) * 60ms);
+  will-change: opacity, transform;
+}
+.on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ------- Accessibility: reduced motion ------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .on-scroll {
+    transform: none !important;
+    animation-duration: 200ms !important;
+    transition-duration: 200ms !important;
+    transition-delay: 0ms !important;
+  }
+  [data-parallax] {
+    transform: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
 }
