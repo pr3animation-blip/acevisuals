@@ -179,7 +179,7 @@ export default function Page() {
           </div>
 
           {/* Marquee */}
-          <div className="reveal reveal-d6 marquee bg-primary text-primary-foreground absolute -right-6 -bottom-4 -left-6 overflow-hidden py-2.5 [transform:rotate(-0.4deg)] md:-right-12 md:-left-12">
+          <div className="reveal reveal-d6 marquee bg-primary text-primary-foreground absolute -right-5 -bottom-4 -left-5 overflow-hidden py-2.5 [transform:rotate(-0.4deg)] sm:-right-7 sm:-left-7 md:-right-10 md:-left-10 lg:-right-14 lg:-left-14">
             <div className="marquee-track font-mono text-[10px] tracking-[0.25em] uppercase">
               {Array.from({ length: 2 }).map((_, dup) => (
                 <span key={dup} className="inline-flex shrink-0 gap-10 pr-10">
