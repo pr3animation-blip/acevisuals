@@ -83,9 +83,10 @@ const TILES: Tile[] = [
 export default function Page() {
   return (
     <main className="relative min-h-svh bg-background text-foreground">
-      <div className="mx-auto w-full max-w-[1240px] px-6 pt-6 pb-10 md:px-12 md:pt-10 md:pb-16">
+      <div className="mx-auto w-full max-w-[1240px] px-3 py-4 sm:px-6 sm:py-6 md:px-10 md:py-8 lg:px-14 lg:py-10">
+        <div className="hairline border-border rounded-sm border px-5 pt-6 pb-10 sm:px-7 md:px-10 md:pt-10 md:pb-16 lg:px-14">
         {/* ---------- NAV ---------- */}
-        <nav className="reveal reveal-d1 hairline border-border grid grid-cols-[auto_1fr_auto] items-center gap-6 border-b pb-6 md:grid-cols-[1fr_auto_1fr] md:pb-8">
+        <nav className="reveal reveal-d1 grid grid-cols-[auto_1fr_auto] items-center gap-6 pb-6 md:grid-cols-[1fr_auto_1fr] md:pb-8">
           <div className="font-serif text-xl tracking-[-0.02em] italic md:text-2xl">
             Ace<span className="text-primary not-italic">·</span>Visuals
           </div>
@@ -113,12 +114,12 @@ export default function Page() {
         </nav>
 
         {/* ---------- HERO ---------- */}
-        <section className="hairline border-border relative grid gap-10 border-b py-14 md:grid-cols-[1.1fr_0.9fr] md:gap-12 md:py-20">
+        <section className="relative grid gap-10 py-14 md:grid-cols-[1.1fr_0.9fr] md:gap-12 md:py-20">
           <div className="flex flex-col justify-center">
             <div className="reveal reveal-d2 text-primary font-mono text-[10px] tracking-[0.22em] uppercase">
               3D generalist · visual storyteller · 2020—∞
             </div>
-            <h1 className="reveal reveal-d3 mt-5 font-serif text-[44px] leading-[0.95] font-normal tracking-[-0.035em] sm:text-[56px] md:text-[68px] lg:text-[78px]">
+            <h1 className="reveal reveal-d3 mt-5 font-serif text-[44px] leading-[0.95] font-normal tracking-[-0.04em] sm:text-[56px] md:text-[68px] lg:text-[78px]">
               Worlds,
               <br />
               rendered <em className="text-primary italic">frame</em>
@@ -157,7 +158,7 @@ export default function Page() {
 
           {/* Reel card */}
           <div className="reveal reveal-d4 relative">
-            <div className="group hairline border-border bg-card relative aspect-[4/5] overflow-hidden rounded-md">
+            <div className="group reel-frame hairline border-border bg-card relative aspect-[4/5] overflow-hidden rounded-md">
               <div className="thumb thumb-halo" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="border-background/50 bg-background/10 rounded border border-dashed px-4 py-2.5 font-mono text-[10px] tracking-[0.22em] text-white uppercase backdrop-blur-sm">
@@ -242,7 +243,7 @@ export default function Page() {
         </section>
 
         {/* ---------- CASE STUDY ---------- */}
-        <section className="hairline border-border mt-20 grid gap-10 border-y py-14 md:mt-28 md:grid-cols-[1fr_1.35fr] md:gap-14 md:py-20">
+        <section className="mt-20 grid gap-10 py-14 md:mt-28 md:grid-cols-[1fr_1.35fr] md:gap-14 md:py-20">
           <div>
             <div className="text-primary font-mono text-[10px] tracking-[0.22em] uppercase">
               Case study · 02
@@ -291,7 +292,7 @@ export default function Page() {
         {/* ---------- ABOUT ---------- */}
         <section
           id="studio"
-          className="hairline border-border grid gap-10 border-b py-16 md:grid-cols-[0.8fr_1.2fr] md:gap-16 md:py-24"
+          className="grid gap-10 py-16 md:grid-cols-[0.8fr_1.2fr] md:gap-16 md:py-24"
         >
           <div className="relative">
             <div className="hairline border-border relative aspect-[4/5] overflow-hidden rounded-md bg-secondary">
@@ -384,7 +385,7 @@ export default function Page() {
         </section>
 
         {/* ---------- FOOTER ---------- */}
-        <footer className="hairline border-border text-ink-muted grid grid-cols-2 gap-3 border-t pt-6 font-mono text-[10px] tracking-[0.1em] md:grid-cols-3">
+        <footer className="text-ink-muted grid grid-cols-2 gap-3 pt-6 font-mono text-[10px] tracking-[0.1em] md:grid-cols-3">
           <span>© 2026 Ace·Visuals Studio</span>
           <span className="hidden justify-self-center md:inline">
             Built with Next · Tailwind · ShadCN
@@ -397,6 +398,7 @@ export default function Page() {
             <ArrowUpRight size={11} weight="bold" />
           </a>
         </footer>
+        </div>
       </div>
     </main>
   )

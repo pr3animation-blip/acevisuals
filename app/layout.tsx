@@ -9,7 +9,7 @@ const fontSerif = Fraunces({
   subsets: ["latin"],
   variable: "--font-serif",
   style: ["normal", "italic"],
-  weight: ["400", "500", "600"],
+  axes: ["opsz"],
   display: "swap",
 })
 

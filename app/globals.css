@@ -103,13 +103,13 @@
 .dark {
   --paper: #0f0d18;
   --ink: #f2eee4;
-  --ink-muted: #9a94a8;
-  --line: rgba(242, 238, 228, 0.14);
+  --ink-muted: #b2aebe;
+  --line: rgba(242, 238, 228, 0.22);
   --grain: rgba(242, 238, 228, 0.045);
 
   --background: var(--paper);
   --foreground: var(--ink);
-  --card: #1a1628;
+  --card: #1f1a2e;
   --card-foreground: var(--ink);
   --popover: #1a1628;
   --popover-foreground: var(--ink);
@@ -144,6 +144,7 @@
     @apply font-sans;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    font-optical-sizing: auto;
   }
   body {
     @apply bg-background text-foreground;
@@ -344,6 +345,32 @@
   .hairline {
     border-width: 0.5px;
   }
+}
+
+/* Theme toggle — sliding active indicator. !important beats next-themes' brief transition disabler. */
+.theme-pill-indicator {
+  transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1) !important;
+}
+.theme-pill-indicator[data-mounted="false"] {
+  transition: none !important;
+}
+
+/* Reel card — ambient shadow + 1px inset highlight so it reads as an object on paper */
+.reel-frame {
+  box-shadow:
+    0 30px 64px -28px rgba(26, 23, 36, 0.42),
+    0 10px 22px -10px rgba(26, 23, 36, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: box-shadow 400ms cubic-bezier(0.2, 0, 0.1, 1), transform 400ms cubic-bezier(0.2, 0, 0.1, 1);
+}
+.dark .reel-frame {
+  box-shadow:
+    0 30px 64px -28px rgba(0, 0, 0, 0.65),
+    0 10px 22px -10px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.reel-frame:hover {
+  transform: translateY(-2px);
 }
 
 /* Tile title plate — paper chip that sits on top of the thumb */
