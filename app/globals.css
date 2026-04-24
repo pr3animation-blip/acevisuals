@@ -233,6 +233,38 @@
   transform: scale(1.04);
 }
 
+/* ------- Photo/render media — Next Image fill, hover scale ------- */
+.media-still {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.media-still img {
+  transition: transform 700ms var(--ease-out-strong);
+  will-change: transform;
+}
+.group:hover .media-still img {
+  transform: scale(1.04);
+}
+.media-still::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 55%,
+    rgba(12, 10, 22, 0.28) 100%
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+}
+.dark .media-still::after {
+  mix-blend-mode: normal;
+  opacity: 0.8;
+}
+
 .thumb-halo {
   background:
     radial-gradient(
@@ -399,6 +431,73 @@
 }
 .link-u:hover {
   background-size: 100% 1px;
+}
+
+/* ------- Nav masthead lockup — mark ∣ wordmark + caption ------- */
+.nav-lockup {
+  transition: opacity 160ms var(--ease-out-strong);
+  will-change: opacity;
+}
+.nav-lockup:active {
+  opacity: 0.82;
+}
+@media (hover: hover) and (pointer: fine) {
+  .nav-lockup:hover .hairline {
+    border-color: color-mix(in srgb, var(--primary) 55%, var(--border));
+    transition: border-color 160ms var(--ease-out-strong);
+  }
+}
+
+/* ------- Footer brand plate — end-card echoing the hero poster ------- */
+.brand-plate {
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--card) 78%, transparent) 0%,
+      color-mix(in srgb, var(--card) 96%, transparent) 100%
+    );
+  box-shadow:
+    0 26px 58px -32px rgba(26, 23, 36, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.brand-plate::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(
+    ellipse 120% 80% at 50% 50%,
+    rgba(0, 0, 0, 0.85) 0%,
+    transparent 72%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 120% 80% at 50% 50%,
+    rgba(0, 0, 0, 0.85) 0%,
+    transparent 72%
+  );
+  opacity: 0.55;
+}
+.brand-plate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 60% 80% at 50% 100%,
+      color-mix(in srgb, var(--primary) 14%, transparent) 0%,
+      transparent 70%
+    );
+}
+.dark .brand-plate {
+  box-shadow:
+    0 26px 58px -28px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 /* ------- Scroll reveal (toggled by MotionInit) ------- */
