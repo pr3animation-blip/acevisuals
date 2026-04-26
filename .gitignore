@@ -34,3 +34,7 @@ pnpm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# media originals (kept locally, not in git)
+/_image-originals/
+/_video-originals/

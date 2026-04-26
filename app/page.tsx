@@ -42,31 +42,31 @@ const RENDER_INDEX: RenderItem[] = [
   {
     title: "Splash Bottle",
     meta: "a · Sim",
-    src: "/media/products/bottle.png",
+    src: "/media/products/bottle.webp",
     alt: "Insulated bottle suspended in frozen water splash",
   },
   {
     title: "Berry Cola",
     meta: "b · Product",
-    src: "/media/products/can.png",
+    src: "/media/products/can.webp",
     alt: "Energy drink can with berries in mid-air",
   },
   {
     title: "Noir Lipstick",
     meta: "c · Beauty",
-    src: "/media/products/lipstick.png",
+    src: "/media/products/lipstick.webp",
     alt: "Deep red lipstick, angled bevel, water beads",
   },
   {
     title: "Keycap · 01",
     meta: "d · Product",
-    src: "/media/products/keypop.png",
+    src: "/media/products/keypop.webp",
     alt: "Mechanical keycap lifted out of a keyboard in a purple halo",
   },
   {
     title: "Resin Figure",
     meta: "e · Study",
-    src: "/media/products/other-card.png",
+    src: "/media/products/other-card.webp",
     alt: "Translucent blue resin figurine on stone",
   },
 ]
@@ -75,7 +75,7 @@ const TILES: Tile[] = [
   {
     title: "Imperial TIE-Fighter",
     meta: "Personal · Film",
-    src: "/media/tie-fighter/front.png",
+    src: "/media/tie-fighter/front.webp",
     alt: "Imperial TIE-fighter, frontal hero render, shallow key light on the cockpit",
     span: "col-span-6 row-span-3 md:col-span-4",
     size: "lg",
@@ -84,7 +84,7 @@ const TILES: Tile[] = [
   {
     title: "Piper Archer TX",
     meta: "Brand Film · Piper",
-    src: "/media/aviation/piper-reveal.png",
+    src: "/media/aviation/piper-reveal.webp",
     alt: "Piper Archer TX — nose badge lit by a single slash of studio light",
     span: "col-span-3 row-span-2 md:col-span-2",
     size: "md",
@@ -92,7 +92,7 @@ const TILES: Tile[] = [
   {
     title: "Opus — Eau de Parfum",
     meta: "Product · Render",
-    src: "/media/products/perfume-frame.png",
+    src: "/media/products/perfume-frame.webp",
     alt: "Amber perfume bottle suspended in amber liquid beads",
     span: "col-span-3 row-span-2 md:col-span-2",
     size: "md",
@@ -100,7 +100,7 @@ const TILES: Tile[] = [
   {
     title: "Monitor 01 — Colorway",
     meta: "Product · Look-dev",
-    src: "/media/products/headphones.png",
+    src: "/media/products/headphones.webp",
     alt: "Over-ear headphones in four colorways, studio grey sweep",
     span: "col-span-3 row-span-1 md:col-span-2",
     size: "sm",
@@ -109,7 +109,7 @@ const TILES: Tile[] = [
   {
     title: "Writing Set",
     meta: "Product · R&D",
-    src: "/media/products/pens.png",
+    src: "/media/products/pens.webp",
     alt: "Ring of pens converging, one central stylus in hero light",
     span: "col-span-3 row-span-1 md:col-span-2",
     size: "sm",
@@ -117,7 +117,7 @@ const TILES: Tile[] = [
   {
     title: "Archer TX — Hangar",
     meta: "Aviation · Editorial",
-    src: "/media/aviation/field-0003.png",
+    src: "/media/aviation/field-0003.webp",
     alt: "Piper Archer TX fuselage detail with the Archer TX wordmark",
     span: "col-span-6 row-span-2 md:col-span-3",
     size: "md",
@@ -126,7 +126,7 @@ const TILES: Tile[] = [
   {
     title: "TIE · Wing Detail",
     meta: "Study · Personal",
-    src: "/media/tie-fighter/wing.png",
+    src: "/media/tie-fighter/wing.webp",
     alt: "TIE-fighter wing hub from behind, solar panel geometry",
     span: "col-span-6 row-span-1 md:col-span-3",
     size: "sm",
@@ -437,7 +437,7 @@ export default function Page() {
               <div className="hairline border-border relative row-span-2 overflow-hidden rounded-md">
                 <div className="media-still">
                   <Image
-                    src="/media/tie-fighter/wide.png"
+                    src="/media/tie-fighter/wide.webp"
                     alt="TIE-fighter — classic wide establishing shot"
                     fill
                     sizes="(min-width: 1024px) 480px, 60vw"
@@ -448,7 +448,7 @@ export default function Page() {
               <div className="hairline border-border relative overflow-hidden rounded-md">
                 <div className="media-still">
                   <Image
-                    src="/media/tie-fighter/back-high.png"
+                    src="/media/tie-fighter/back-high.webp"
                     alt="TIE-fighter — three-quarter rear, high angle"
                     fill
                     sizes="(min-width: 1024px) 240px, 30vw"
@@ -459,7 +459,7 @@ export default function Page() {
               <div className="hairline border-border relative overflow-hidden rounded-md">
                 <div className="media-still">
                   <Image
-                    src="/media/tie-fighter/front-alt.png"
+                    src="/media/tie-fighter/front-alt.webp"
                     alt="TIE-fighter — cockpit detail, profile"
                     fill
                     sizes="(min-width: 1024px) 240px, 30vw"
@@ -482,7 +482,7 @@ export default function Page() {
                 <div className="hairline border-border bg-secondary relative aspect-[4/5] overflow-hidden rounded-md">
                   <div className="media-still">
                     <Image
-                      src="/media/tie-fighter/back-low.png"
+                      src="/media/tie-fighter/back-low.webp"
                       alt="TIE-fighter — rear low, running lights glowing"
                       fill
                       sizes="(min-width: 1024px) 340px, 50vw"
