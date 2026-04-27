@@ -1,11 +1,18 @@
 "use client"
 
 import { useEffect } from "react"
+import { usePathname } from "next/navigation"
 
 export function MotionInit() {
+  const pathname = usePathname()
   useEffect(() => {
     const mql = window.matchMedia("(prefers-reduced-motion: reduce)")
-    if (mql.matches) return
+    if (mql.matches) {
+      document
+        .querySelectorAll<HTMLElement>("[data-reveal]")
+        .forEach((el) => el.classList.add("is-visible"))
+      return
+    }
 
     const io = new IntersectionObserver(
       (entries) => {
@@ -59,7 +66,7 @@ export function MotionInit() {
       window.removeEventListener("resize", onScroll)
       if (raf) cancelAnimationFrame(raf)
     }
-  }, [])
+  }, [pathname])
 
   return null
 }

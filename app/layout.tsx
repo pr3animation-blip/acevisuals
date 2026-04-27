@@ -1,35 +1,45 @@
 import type { Metadata } from "next"
-import { Fraunces, Instrument_Sans, JetBrains_Mono } from "next/font/google"
+import { Geist_Mono, Oxanium } from "next/font/google"
 
 import "./globals.css"
 import { MotionInit } from "@/components/motion-init"
+import { SiteFooter } from "@/components/site-footer"
+import { SiteNav } from "@/components/site-nav"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
-const fontSerif = Fraunces({
+const oxaniumHeading = Oxanium({
   subsets: ["latin"],
-  variable: "--font-serif",
-  style: ["normal", "italic"],
-  axes: ["opsz"],
+  variable: "--font-heading",
   display: "swap",
 })
 
-const fontSans = Instrument_Sans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-})
-
-const fontMono = JetBrains_Mono({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://acevisuals.io"),
   title: "Ace·Visuals — 3D generalist & visual storyteller",
   description:
     "A portfolio of motion, form, and narrative — built at the intersection of cinema, simulation, and craft.",
+  openGraph: {
+    type: "website",
+    url: "https://acevisuals.io",
+    siteName: "Ace Visuals",
+    title: "Ace·Visuals — 3D generalist & visual storyteller",
+    description:
+      "A portfolio of motion, form, and narrative — built at the intersection of cinema, simulation, and craft.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ace·Visuals — 3D generalist & visual storyteller",
+    description:
+      "A portfolio of motion, form, and narrative — built at the intersection of cinema, simulation, and craft.",
+  },
 }
 
 export default function RootLayout({
@@ -42,15 +52,17 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       className={cn(
-        "antialiased",
-        fontSerif.variable,
-        fontSans.variable,
-        fontMono.variable,
-        "font-sans",
+        "antialiased font-mono",
+        geistMono.variable,
+        oxaniumHeading.variable,
       )}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <SiteNav />
+          {children}
+          <SiteFooter />
+        </ThemeProvider>
         <MotionInit />
       </body>
     </html>
