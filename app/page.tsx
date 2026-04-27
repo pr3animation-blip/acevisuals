@@ -178,7 +178,7 @@ export default function Page() {
                 style={{ "--stagger": i } as React.CSSProperties}
                 className="on-scroll relative flex h-full flex-col p-5 md:p-6"
               >
-                <header className="hairline border-border border-b pb-5">
+                <header>
                   <Eyebrow tone="primary">
                     {`0${i + 1} · ${c.k}`}
                   </Eyebrow>
@@ -186,10 +186,10 @@ export default function Page() {
                     {c.t}
                   </h3>
                 </header>
-                <p className="text-ink-muted flex-1 py-5 text-sm leading-[1.65]">
+                <p className="text-ink-muted flex-1 pt-5 pb-6 text-sm leading-[1.65]">
                   {c.body}
                 </p>
-                <footer className="hairline border-border border-t pt-4">
+                <footer>
                   <p className="text-foreground min-h-[2lh] font-mono text-[10px] leading-[1.55] tracking-[0.18em] uppercase">
                     {c.outcome}
                   </p>
