@@ -64,10 +64,20 @@ export default function Page() {
           muted
           loop
           playsInline
-          preload="none"
+          preload="auto"
           poster="/media/brand/header-still.png"
         >
-          <source src="/media/hero/showreel.mp4" type="video/mp4" />
+          <source
+            src="/Branding%20Assets/hero-mobile.mp4"
+            type="video/mp4"
+            media="(max-width: 767px)"
+          />
+          <source
+            src="/Branding%20Assets/hero-tablet.mp4"
+            type="video/mp4"
+            media="(max-width: 1023px)"
+          />
+          <source src="/Branding%20Assets/Logo%20Reveal%2060fps%20-%20LONG_1.mp4" type="video/mp4" />
         </video>
 
         {/* Layer 3 — gradient floors for legibility + brand-tinted vignette */}
@@ -86,7 +96,7 @@ export default function Page() {
             end-to-end by one person with a six-year shot count.
           </p>
 
-          <div className="reveal reveal-d5 mt-7 flex flex-wrap items-center gap-3 md:mt-9 md:gap-4">
+          <div className="reveal reveal-d5 mt-7 flex flex-nowrap items-center gap-3 md:mt-9 md:gap-4">
             <Button
               asChild
               size="lg"
@@ -101,10 +111,11 @@ export default function Page() {
               href="/contact"
               className="hairline inline-flex h-11 items-center gap-2 rounded-full border border-white/30 bg-white/5 px-4 font-mono text-[10px] tracking-[0.22em] text-white/85 uppercase backdrop-blur-sm transition-colors hover:border-white/60 hover:bg-white/10 hover:text-white"
             >
-              <span>Start a project</span>
+              <span className="sm:hidden">Project</span>
+              <span className="hidden sm:inline">Start a project</span>
               <ArrowUpRight size={12} weight="bold" />
             </Link>
-            <span className="hairline inline-flex h-11 items-center gap-2 rounded-full border border-white/20 px-4 font-mono text-[10px] tracking-[0.22em] text-white/70 uppercase backdrop-blur-sm">
+            <span className="hairline hidden h-11 items-center gap-2 rounded-full border border-white/20 px-4 font-mono text-[10px] tracking-[0.22em] text-white/70 uppercase backdrop-blur-sm sm:inline-flex">
               <span aria-hidden className="hero-status-dot block h-1.5 w-1.5 rounded-full bg-primary" />
               Booking Q2
             </span>
@@ -176,7 +187,7 @@ export default function Page() {
                 size="none"
                 data-reveal
                 style={{ "--stagger": i } as React.CSSProperties}
-                className="on-scroll relative flex h-full flex-col p-5 md:p-6"
+                className="on-scroll relative flex h-full flex-col px-7 py-7! md:px-8 md:py-8!"
               >
                 <header>
                   <Eyebrow tone="primary">
