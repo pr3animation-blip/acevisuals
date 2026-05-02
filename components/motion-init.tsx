@@ -29,9 +29,26 @@ export function MotionInit() {
     const revealEls = document.querySelectorAll<HTMLElement>("[data-reveal]")
     revealEls.forEach((el) => io.observe(el))
 
+    // Pause marquee when off-screen (compositor + battery hygiene).
+    const marqueeIo = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          ;(entry.target as HTMLElement).style.animationPlayState =
+            entry.isIntersecting ? "running" : "paused"
+        }
+      },
+      { threshold: 0 },
+    )
+    const marqueeEls =
+      document.querySelectorAll<HTMLElement>(".marquee-track")
+    marqueeEls.forEach((el) => marqueeIo.observe(el))
+
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches
     if (!fine) {
-      return () => io.disconnect()
+      return () => {
+        io.disconnect()
+        marqueeIo.disconnect()
+      }
     }
 
     const parallaxEls: { el: HTMLElement; speed: number }[] = []
@@ -62,6 +79,7 @@ export function MotionInit() {
 
     return () => {
       io.disconnect()
+      marqueeIo.disconnect()
       window.removeEventListener("scroll", onScroll)
       window.removeEventListener("resize", onScroll)
       if (raf) cancelAnimationFrame(raf)

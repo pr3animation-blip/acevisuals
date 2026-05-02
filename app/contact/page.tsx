@@ -23,29 +23,6 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
-
-const PROJECT_TYPES = ["Film", "Product", "Brand", "Personal", "Other"] as const
-const SCOPE_TAGS = [
-  "Modeling",
-  "Look-dev",
-  "Sim",
-  "Lighting",
-  "Compositing",
-  "Direction",
-  "Editorial",
-] as const
-const TIMELINES = ["ASAP", "1–2 mo", "3–4 mo", "Flexible"] as const
-const BUDGETS = ["< $10k", "$10–25k", "$25–50k", "$50–100k", "$100k+"] as const
-
-const MARQUEE_TOKENS = [
-  "Booking Q2 · 2026",
-  "Currently in production",
-  "Reply within 48 hours",
-  "Worldwide",
-  "Open to brief",
-  "On location · selectively",
-]
 
 const STATS: [string, string][] = [
   ["Booking", "Q2 · 2026"],
@@ -54,39 +31,14 @@ const STATS: [string, string][] = [
   ["Channels", "Email · Vimeo · IG"],
 ]
 
-const FAQ_CARDS = [
-  {
-    k: "What to include",
-    t: "A north-star",
-    body: "One or two reference frames, the feeling you’re chasing, and the deadline. The rest we shape together.",
-  },
-  {
-    k: "How I work",
-    t: "Small, deep teams",
-    body: "Direct collaboration, no account layers. Pipeline-agnostic. A short discovery call, then a written treatment.",
-  },
-  {
-    k: "After this",
-    t: "A treatment in 5 days",
-    body: "I’ll send a one-page treatment with stills, a budget shape, and a frame-by-frame plan. You decide if we make it.",
-  },
-]
-
 const legendClass =
-  "hairline border-border text-ink-muted -ml-1 mb-5 inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1 font-mono text-[10px] tracking-[0.22em] uppercase"
+  "text-ink-muted -ml-1 mb-5 inline-flex w-fit items-center gap-2 font-mono text-[10px] tracking-[0.22em] uppercase"
 
 const labelClass =
   "text-ink-muted flex items-baseline justify-between font-mono text-[10px] tracking-[0.22em] uppercase"
 
-const chipClass =
-  "hairline rounded-full border-border data-[state=on]:border-primary data-[state=on]:bg-primary data-[state=on]:text-primary-foreground hover:border-primary/40 hover:bg-transparent hover:text-foreground text-ink-muted h-auto px-3.5 py-1.5 font-mono text-[10px] tracking-[0.18em] uppercase active:scale-[0.97]"
-
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
-  const [type, setType] = useState<string>("")
-  const [scope, setScope] = useState<string[]>([])
-  const [timeline, setTimeline] = useState<string>("")
-  const [budget, setBudget] = useState<string>("")
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -99,34 +51,9 @@ export default function ContactPage() {
   return (
     <main className="site-page relative min-h-svh bg-background text-foreground">
       <div className="mx-auto w-full max-w-[1240px] px-3 py-4 sm:px-6 sm:py-6 md:px-10 md:py-8 lg:px-14 lg:py-10">
-        <div className="px-5 pt-6 pb-10 sm:px-7 md:px-10 md:pt-10 md:pb-16 lg:px-14">
-          {/* ---------- BRIEF SLATE STRIP ---------- */}
-          <Card
-            variant="hairline"
-            size="none"
-            data-reveal
-            className="on-scroll text-ink-muted font-mono mt-4 grid grid-cols-2 items-center gap-3 px-4 py-2.5 text-[9px] tracking-[0.22em] uppercase md:grid-cols-4 md:px-5"
-          >
-            <span>
-              <span className="text-foreground">File</span>{" "}
-              <span className="text-primary">·</span> AV-04 / Brief
-            </span>
-            <span className="hidden md:block">
-              <span className="text-foreground">Date</span>{" "}
-              <span className="text-primary">·</span> 2026-04-25
-            </span>
-            <span className="hidden md:block">
-              <span className="text-foreground">Take</span>{" "}
-              <span className="text-primary">·</span> 001 / 001
-            </span>
-            <span className="text-right md:text-right">
-              <span className="text-foreground">Status</span>{" "}
-              <span className="text-primary">·</span> Booking Q2
-            </span>
-          </Card>
-
+        <div className="px-5 pt-10 pb-10 sm:px-7 md:px-10 md:pt-14 md:pb-16 lg:px-14">
           {/* ---------- HEADER ---------- */}
-          <header className="relative pt-14 pb-10 md:pt-20 md:pb-14">
+          <header className="relative pb-12 md:pb-16">
             <Eyebrow tone="primary" className="reveal reveal-d2">
               Contact · 04 / Brief
             </Eyebrow>
@@ -208,7 +135,7 @@ export default function ContactPage() {
                       </Card>
                     </dl>
                     <div className="mt-10 flex flex-wrap items-center gap-4">
-                      <Button asChild size="lg" className="h-10 gap-2 px-4">
+                      <Button asChild size="lg" className="h-11 gap-2 rounded-full px-5 text-[12px] tracking-[0.05em]">
                         <Link href="/">
                           <ArrowLeft
                             size={12}
@@ -222,13 +149,7 @@ export default function ContactPage() {
                         type="button"
                         variant="link"
                         size="sm"
-                        onClick={() => {
-                          setSubmitted(false)
-                          setType("")
-                          setScope([])
-                          setTimeline("")
-                          setBudget("")
-                        }}
+                        onClick={() => setSubmitted(false)}
                         className="text-ink-muted hover:text-foreground link-u h-auto px-0 text-sm font-normal no-underline hover:no-underline"
                       >
                         Send another brief
@@ -302,123 +223,10 @@ export default function ContactPage() {
                       </FieldGroup>
                     </FieldSet>
 
-                    {/* SECTION 02 — PROJECT */}
-                    <FieldSet data-reveal className="on-scroll gap-7 border-0">
-                      <FieldLegend className={legendClass}>
-                        <span className="text-primary">02</span>
-                        <span aria-hidden className="opacity-50">
-                          /
-                        </span>
-                        <span>Project</span>
-                      </FieldLegend>
-
-                      <Field>
-                        <FieldLabel className={labelClass}>
-                          <span>
-                            Type <span className="text-primary">*</span>
-                          </span>
-                        </FieldLabel>
-                        <ToggleGroup
-                          type="single"
-                          value={type}
-                          onValueChange={(v) => v && setType(v)}
-                          spacing={2}
-                          className="flex-wrap"
-                        >
-                          {PROJECT_TYPES.map((p) => (
-                            <ToggleGroupItem
-                              key={p}
-                              value={p}
-                              variant="outline"
-                              className={chipClass}
-                            >
-                              {p}
-                            </ToggleGroupItem>
-                          ))}
-                        </ToggleGroup>
-                      </Field>
-
-                      <Field>
-                        <FieldLabel className={labelClass}>
-                          <span>Scope</span>
-                          <span className="text-ink-muted/70 text-[9px] tracking-[0.18em]">
-                            select all that apply
-                          </span>
-                        </FieldLabel>
-                        <ToggleGroup
-                          type="multiple"
-                          value={scope}
-                          onValueChange={setScope}
-                          spacing={2}
-                          className="flex-wrap"
-                        >
-                          {SCOPE_TAGS.map((s) => (
-                            <ToggleGroupItem
-                              key={s}
-                              value={s}
-                              variant="outline"
-                              className={chipClass}
-                            >
-                              {s}
-                            </ToggleGroupItem>
-                          ))}
-                        </ToggleGroup>
-                      </Field>
-
-                      <div className="grid gap-7 md:grid-cols-2">
-                        <Field>
-                          <FieldLabel className={labelClass}>
-                            <span>Timeline</span>
-                          </FieldLabel>
-                          <ToggleGroup
-                            type="single"
-                            value={timeline}
-                            onValueChange={(v) => v && setTimeline(v)}
-                            spacing={2}
-                            className="flex-wrap"
-                          >
-                            {TIMELINES.map((t) => (
-                              <ToggleGroupItem
-                                key={t}
-                                value={t}
-                                variant="outline"
-                                className={chipClass}
-                              >
-                                {t}
-                              </ToggleGroupItem>
-                            ))}
-                          </ToggleGroup>
-                        </Field>
-                        <Field>
-                          <FieldLabel className={labelClass}>
-                            <span>Budget range</span>
-                          </FieldLabel>
-                          <ToggleGroup
-                            type="single"
-                            value={budget}
-                            onValueChange={(v) => v && setBudget(v)}
-                            spacing={2}
-                            className="flex-wrap"
-                          >
-                            {BUDGETS.map((b) => (
-                              <ToggleGroupItem
-                                key={b}
-                                value={b}
-                                variant="outline"
-                                className={chipClass}
-                              >
-                                {b}
-                              </ToggleGroupItem>
-                            ))}
-                          </ToggleGroup>
-                        </Field>
-                      </div>
-                    </FieldSet>
-
-                    {/* SECTION 03 — BRIEF */}
+                    {/* SECTION 02 — BRIEF */}
                     <FieldSet data-reveal className="on-scroll border-0">
                       <FieldLegend className={legendClass}>
-                        <span className="text-primary">03</span>
+                        <span className="text-primary">02</span>
                         <span aria-hidden className="opacity-50">
                           /
                         </span>
@@ -470,7 +278,7 @@ export default function ContactPage() {
                     {/* SUBMIT */}
                     <div
                       data-reveal
-                      className="on-scroll hairline border-border flex flex-col items-stretch gap-4 border-t pt-7 sm:flex-row sm:items-center sm:justify-between"
+                      className="on-scroll border-border flex flex-col items-stretch gap-4 border-t pt-7 sm:flex-row sm:items-center sm:justify-between"
                     >
                       <p className="text-ink-muted max-w-[36ch] font-mono text-[10px] leading-[1.65] tracking-[0.12em] uppercase">
                         By sending you agree to a quick reply
@@ -483,7 +291,7 @@ export default function ContactPage() {
                       <Button
                         type="submit"
                         size="lg"
-                        className="h-10 gap-2 px-4"
+                        className="h-11 gap-2 rounded-full px-5 text-[12px] tracking-[0.05em]"
                       >
                         Send the brief
                         <PaperPlaneTilt
@@ -498,7 +306,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* -------- RIGHT: SPECIMEN / CALL SHEET -------- */}
+            {/* -------- RIGHT: SPECIMEN -------- */}
             <aside className="relative">
               <div data-reveal className="on-scroll">
                 <div data-parallax data-parallax-speed="0.05">
@@ -519,12 +327,6 @@ export default function ContactPage() {
                         />
                       </div>
 
-                      <Badge
-                        variant="media"
-                        className="absolute top-3 left-3"
-                      >
-                        Call sheet · 26.04
-                      </Badge>
                       <Badge
                         variant="media-primary"
                         className="absolute top-3 right-3"
@@ -577,10 +379,8 @@ export default function ContactPage() {
                 {/* Stats */}
                 <dl className="mt-5 grid grid-cols-2 gap-2.5">
                   {STATS.map(([k, v], i) => (
-                    <Card
+                    <div
                       key={k}
-                      variant="hairline"
-                      size="none"
                       data-reveal
                       style={{ "--stagger": i } as React.CSSProperties}
                       className="on-scroll p-3"
@@ -591,17 +391,12 @@ export default function ContactPage() {
                       <dd className="mt-1.5 font-serif text-[14px] tracking-[-0.01em]">
                         {v}
                       </dd>
-                    </Card>
+                    </div>
                   ))}
                 </dl>
 
                 {/* Quote / personal note */}
-                <Card
-                  variant="hairline"
-                  size="none"
-                  data-reveal
-                  className="on-scroll mt-5 p-5"
-                >
+                <div data-reveal className="on-scroll mt-5 p-5">
                   <blockquote>
                     <span className="text-primary font-serif text-2xl leading-none">
                       &ldquo;
@@ -615,63 +410,11 @@ export default function ContactPage() {
                       — Ace, field note
                     </footer>
                   </blockquote>
-                </Card>
+                </div>
               </div>
             </aside>
           </section>
 
-          {/* ---------- ROTATED MARQUEE — flair ---------- */}
-          <div className="relative pt-2">
-            <div className="reveal marquee bg-primary text-primary-foreground -mx-5 overflow-hidden py-2.5 [transform:rotate(-0.4deg)] sm:-mx-7 md:-mx-10 lg:-mx-14">
-              <div className="marquee-track font-mono text-[10px] tracking-[0.25em] uppercase">
-                {Array.from({ length: 2 }).map((_, dup) => (
-                  <span key={dup} className="inline-flex shrink-0 gap-10 pr-10">
-                    {MARQUEE_TOKENS.map((t, i) => (
-                      <span
-                        key={`${dup}-${i}`}
-                        className="inline-flex items-center gap-10"
-                      >
-                        <span>{t}</span>
-                        <span aria-hidden className="opacity-60">
-                          ✦
-                        </span>
-                      </span>
-                    ))}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* ---------- WHAT TO INCLUDE / FAQ ROW ---------- */}
-          <section className="grid gap-4 pt-16 md:grid-cols-3 md:gap-5 md:pt-24">
-            {FAQ_CARDS.map((c, i) => (
-              <Card
-                key={c.k}
-                variant="hairline"
-                size="none"
-                data-reveal
-                style={{ "--stagger": i } as React.CSSProperties}
-                className="on-scroll relative p-5 md:p-6"
-              >
-                <Eyebrow tone="primary">
-                  {`0${i + 1} · ${c.k}`}
-                </Eyebrow>
-                <h3 className="mt-4 font-serif text-[24px] leading-[1.05] font-normal tracking-[-0.02em] md:text-[26px]">
-                  {c.t}
-                </h3>
-                <p className="text-ink-muted mt-3 text-sm leading-[1.65]">
-                  {c.body}
-                </p>
-                <span
-                  aria-hidden
-                  className="text-ink-muted/30 pointer-events-none absolute -right-2 -bottom-3 font-serif text-[80px] leading-none select-none md:text-[96px]"
-                >
-                  {i + 1}
-                </span>
-              </Card>
-            ))}
-          </section>
         </div>
       </div>
     </main>

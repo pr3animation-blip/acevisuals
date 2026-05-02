@@ -2,7 +2,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, ArrowUpRight } from "@phosphor-icons/react/dist/ssr"
 import { Badge } from "@/components/ui/badge"
-import { Card } from "@/components/ui/card"
 import { Eyebrow } from "@/components/ui/eyebrow"
 
 const STILLS = [
@@ -71,7 +70,7 @@ export default function TieCaseStudyPage() {
   return (
     <main className="site-page relative min-h-svh bg-background text-foreground">
       <div className="mx-auto w-full max-w-[1240px] px-3 py-4 sm:px-6 sm:py-6 md:px-10 md:py-8 lg:px-14 lg:py-10">
-        <div className="hairline border-border rounded-sm border px-5 pt-10 pb-10 sm:px-7 md:px-10 md:pt-14 md:pb-16 lg:px-14">
+        <div className="px-5 pt-10 pb-10 sm:px-7 md:px-10 md:pt-14 md:pb-16 lg:px-14">
           {/* Breadcrumb */}
           <Eyebrow className="reveal reveal-d1">
             <Link
@@ -90,12 +89,13 @@ export default function TieCaseStudyPage() {
           {/* Header */}
           <header className="reveal reveal-d2 pt-8 pb-12 md:pt-12 md:pb-16">
             <Eyebrow tone="primary">Case study · 02 / TIE</Eyebrow>
-            <h1 className="mt-4 font-serif text-[44px] leading-[0.95] font-normal tracking-[-0.04em] sm:text-[60px] md:text-[80px] lg:text-[96px]">
+            <h1 className="mt-4 text-balance font-serif text-[44px] leading-[0.95] font-normal tracking-[-0.04em] sm:text-[60px] md:text-[80px] lg:text-[96px]">
               Mass &amp;
+              <span className="sr-only"> </span>
               <br />
               <em className="text-primary not-italic">menace</em>.
             </h1>
-            <p className="text-ink-muted mt-7 max-w-[58ch] text-sm leading-[1.7] md:text-base">
+            <p className="text-ink-muted mt-7 max-w-[58ch] text-pretty text-sm leading-[1.7] md:text-base">
               A personal study in CG craft. Full modeling, look-dev, and
               lighting — every panel hand-placed, every solar-array louver
               traced to reference. Rendered against a void so the silhouette
@@ -171,10 +171,8 @@ export default function TieCaseStudyPage() {
           {/* Process notes */}
           <section className="mt-16 grid gap-4 md:mt-24 md:grid-cols-3 md:gap-5">
             {NOTES.map((n, i) => (
-              <Card
+              <div
                 key={n.k}
-                variant="hairline"
-                size="none"
                 data-reveal
                 style={{ "--stagger": i } as React.CSSProperties}
                 className="on-scroll relative p-5 md:p-6"
@@ -194,7 +192,7 @@ export default function TieCaseStudyPage() {
                 >
                   {i + 1}
                 </span>
-              </Card>
+              </div>
             ))}
           </section>
 

@@ -5,7 +5,6 @@ import "./globals.css"
 import { MotionInit } from "@/components/motion-init"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteNav } from "@/components/site-nav"
-import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
 const oxaniumHeading = Oxanium({
@@ -50,19 +49,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning
       className={cn(
-        "antialiased font-mono",
+        "dark antialiased font-mono",
         geistMono.variable,
         oxaniumHeading.variable,
       )}
     >
       <body>
-        <ThemeProvider>
-          <SiteNav />
-          {children}
-          <SiteFooter />
-        </ThemeProvider>
+        <SiteNav />
+        {children}
+        <SiteFooter />
         <MotionInit />
       </body>
     </html>

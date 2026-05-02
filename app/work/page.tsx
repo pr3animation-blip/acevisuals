@@ -132,12 +132,13 @@ export default function WorkPage() {
             <Eyebrow tone="primary" index="01">
               Work
             </Eyebrow>
-            <h1 className="mt-4 font-serif text-[44px] leading-[0.95] font-normal tracking-[-0.04em] sm:text-[60px] md:text-[80px] lg:text-[96px]">
+            <h1 className="mt-4 text-balance font-serif text-[44px] leading-[0.95] font-normal tracking-[-0.04em] sm:text-[60px] md:text-[80px] lg:text-[96px]">
               Selected
+              <span className="sr-only"> </span>
               <br />
               <em className="text-primary not-italic">work</em>.
             </h1>
-            <p className="text-ink-muted mt-7 max-w-[58ch] text-sm leading-[1.7] md:text-base">
+            <p className="text-ink-muted mt-7 max-w-[58ch] text-pretty text-sm leading-[1.7] md:text-base">
               A working index — film, brand, product. Each tile is a frame from
               a longer story; click through for treatment, stills, and craft
               notes.
@@ -160,13 +161,20 @@ export default function WorkPage() {
               {TILES.map((tile, i) => {
                 const Wrapper: React.ElementType = tile.href ? Link : "div"
                 const props = tile.href ? { href: tile.href } : {}
+                const interactive = Boolean(tile.href)
+                const arrowSize =
+                  tile.size === "lg"
+                    ? "size-9"
+                    : tile.size === "md"
+                      ? "size-7"
+                      : "size-6"
                 return (
                   <Wrapper
                     key={tile.title}
                     {...props}
                     data-reveal
                     style={{ "--stagger": i } as React.CSSProperties}
-                    className={`on-scroll group hairline border-border bg-card relative overflow-hidden rounded-md ${tile.span}`}
+                    className={`on-scroll ${interactive ? "group" : ""} hairline border-border bg-card relative overflow-hidden rounded-md ${tile.span}`}
                   >
                     <div className="media-still">
                       <Image
@@ -190,7 +198,7 @@ export default function WorkPage() {
                       <Badge variant="media">{tile.meta}</Badge>
                       <div className="flex items-end justify-between gap-3">
                         <h3
-                          className={`tile-title hairline border-border w-fit rounded-sm border px-2 py-1 font-serif font-normal leading-[1.1] tracking-[-0.01em] ${
+                          className={`${interactive ? "tile-title" : ""} hairline border-border w-fit rounded-sm border bg-card px-2 py-1 font-serif font-normal leading-[1.1] tracking-[-0.01em] ${
                             tile.size === "lg"
                               ? "text-[22px] md:text-[26px]"
                               : tile.size === "md"
@@ -200,9 +208,12 @@ export default function WorkPage() {
                         >
                           {tile.title}
                         </h3>
-                        {tile.href ? (
-                          <span className="text-primary bg-background/80 hairline border-border grid h-6 w-6 shrink-0 place-items-center rounded-full border opacity-0 transition-opacity group-hover:opacity-100">
-                            <ArrowUpRight size={11} weight="bold" />
+                        {interactive ? (
+                          <span
+                            aria-hidden
+                            className={`text-primary bg-background/85 hairline border-border grid ${arrowSize} shrink-0 place-items-center rounded-full border opacity-70 transition-opacity duration-200 group-hover:opacity-100`}
+                          >
+                            <ArrowUpRight size={tile.size === "lg" ? 14 : 12} weight="bold" />
                           </span>
                         ) : null}
                       </div>
@@ -226,7 +237,7 @@ export default function WorkPage() {
                   key={item.src}
                   data-reveal
                   style={{ "--stagger": i } as React.CSSProperties}
-                  className="on-scroll group hairline border-border bg-card relative aspect-[3/4] overflow-hidden rounded-md"
+                  className="on-scroll hairline border-border bg-card relative aspect-[3/4] overflow-hidden rounded-md"
                 >
                   <div className="media-still">
                     <Image
@@ -239,7 +250,7 @@ export default function WorkPage() {
                   </div>
                   <div className="relative z-10 flex h-full flex-col justify-between p-3">
                     <Badge variant="media">{item.meta}</Badge>
-                    <h4 className="tile-title hairline border-border w-fit rounded-sm border px-2 py-1 font-serif text-[13px] font-normal leading-[1.1] tracking-[-0.01em] md:text-[14px]">
+                    <h4 className="hairline border-border w-fit rounded-sm border bg-card px-2 py-1 font-serif text-[13px] font-normal leading-[1.1] tracking-[-0.01em] md:text-[14px]">
                       {item.title}
                     </h4>
                   </div>
@@ -257,11 +268,11 @@ export default function WorkPage() {
               <Eyebrow tone="primary" index="02">
                 Case study
               </Eyebrow>
-              <h3 className="mt-3 font-serif text-[28px] leading-[1.05] font-normal tracking-[-0.02em] md:text-[34px]">
+              <h3 className="mt-3 text-balance font-serif text-[28px] leading-[1.05] font-normal tracking-[-0.02em] md:text-[34px]">
                 TIE — a personal study in{" "}
                 <em className="text-primary not-italic">mass &amp; menace</em>.
               </h3>
-              <p className="text-ink-muted mt-5 max-w-[50ch] text-sm leading-[1.7]">
+              <p className="text-ink-muted mt-5 max-w-[50ch] text-pretty text-sm leading-[1.7]">
                 Full CG modeling, look-dev, and lighting. Every panel hand-placed,
                 every solar-array louver traced to reference. Rendered against a
                 void so the silhouette does the acting.

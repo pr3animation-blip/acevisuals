@@ -10,7 +10,6 @@ import {
   List as MenuIcon,
   X as CloseIcon,
 } from "@phosphor-icons/react/dist/ssr"
-import { ThemeToggle } from "@/components/theme-toggle"
 
 type NavLink = { label: string; href: string }
 
@@ -92,9 +91,8 @@ export function SiteNav() {
           })}
         </ul>
 
-        {/* Theme toggle + CTA */}
+        {/* CTA */}
         <div className="flex items-center justify-end gap-3">
-          <ThemeToggle />
           {onContact ? (
             <Link
               href="/"

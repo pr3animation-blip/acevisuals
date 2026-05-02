@@ -4,7 +4,6 @@ import type { Metadata } from "next"
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { Eyebrow } from "@/components/ui/eyebrow"
 
 export const metadata: Metadata = {
@@ -21,13 +20,12 @@ export const metadata: Metadata = {
 }
 
 const DISCIPLINES: [string, string][] = [
-  ["Modeling", "Blender · C4D"],
-  ["Sim", "Houdini · Embergen"],
-  ["Render", "Octane · Redshift"],
+  ["Modeling", "Blender"],
+  ["Render", "Cycles"],
   ["Finishing", "AE · Resolve"],
 ]
 
-const CLIENTS = ["Studios", "Brands", "Filmmakers", "Independent"]
+const CLIENTS = ["Studios", "Brands", "Filmmakers", "Small businesses", "Independent"]
 
 const profileJsonLd = {
   "@context": "https://schema.org",
@@ -43,10 +41,9 @@ const profileJsonLd = {
       "Product Animation",
       "Cinematic Look-Dev",
       "Blender",
+      "Cycles",
       "After Effects",
-      "Houdini",
-      "Octane",
-      "Redshift",
+      "DaVinci Resolve",
     ],
     url: "https://acevisuals.io/about",
   },
@@ -62,8 +59,9 @@ export default function AboutPage() {
             <Eyebrow tone="primary" index="03">
               Who I am
             </Eyebrow>
-            <h1 className="mt-4 font-serif text-[44px] leading-[0.95] font-normal tracking-[-0.04em] sm:text-[60px] md:text-[80px] lg:text-[96px]">
+            <h1 className="mt-4 text-balance font-serif text-[44px] leading-[0.95] font-normal tracking-[-0.04em] sm:text-[60px] md:text-[80px] lg:text-[96px]">
               Andrew.
+              <span className="sr-only"> </span>
               <br />
               <em className="text-primary not-italic">3D &amp; motion</em>{" "}
               designer.
@@ -102,14 +100,14 @@ export default function AboutPage() {
             </div>
 
             <div data-reveal className="on-scroll">
-              <p className="font-serif text-[30px] leading-[1.08] font-normal tracking-[-0.02em] md:text-[38px]">
+              <p className="text-balance font-serif text-[30px] leading-[1.08] font-normal tracking-[-0.02em] md:text-[38px]">
                 I build{" "}
                 <em className="text-primary not-italic">
                   small, strange worlds
                 </em>{" "}
                 — then I photograph them like they&rsquo;ve always existed.
               </p>
-              <p className="mt-5 max-w-[60ch] text-sm leading-[1.7] md:text-[15px]">
+              <p className="mt-5 max-w-[60ch] text-pretty text-sm leading-[1.7] md:text-[15px]">
                 <span className="text-ink-muted mr-2 font-mono text-[10px] tracking-[0.22em] uppercase">
                   Practically —
                 </span>
@@ -118,7 +116,7 @@ export default function AboutPage() {
                 End-to-end: modeled, lit, animated, composited, delivered.
                 One operator. One invoice.
               </p>
-              <p className="text-ink-muted mt-6 max-w-[60ch] text-sm leading-[1.75]">
+              <p className="text-ink-muted mt-6 max-w-[60ch] text-pretty text-sm leading-[1.75]">
                 Self-taught at thirteen. Six years in by nineteen. Ace Visuals
                 is one person — me — making sleek product animation, motion
                 graphics, and{" "}
@@ -135,12 +133,10 @@ export default function AboutPage() {
                 passes through one set of eyes.
               </p>
 
-              <dl className="mt-8 grid grid-cols-2 gap-2.5 md:grid-cols-4">
+              <dl className="mt-8 grid grid-cols-2 gap-2.5 md:grid-cols-3">
                 {DISCIPLINES.map(([k, v], i) => (
-                  <Card
+                  <div
                     key={k}
-                    variant="hairline"
-                    size="none"
                     data-reveal
                     style={{ "--stagger": i } as React.CSSProperties}
                     className="on-scroll p-3"
@@ -149,7 +145,7 @@ export default function AboutPage() {
                       {k}
                     </dt>
                     <dd className="mt-1.5 text-[13px]">{v}</dd>
-                  </Card>
+                  </div>
                 ))}
               </dl>
 
@@ -175,14 +171,18 @@ export default function AboutPage() {
           >
             <div>
               <Eyebrow tone="primary">Now booking</Eyebrow>
-              <p className="mt-4 font-serif text-[36px] leading-[1.02] font-normal tracking-[-0.03em] md:text-[48px]">
+              <p className="mt-4 text-balance font-serif text-[36px] leading-[1.02] font-normal tracking-[-0.03em] md:text-[48px]">
                 Two open slots this quarter.{" "}
                 <em className="text-primary not-italic">Selectively</em>{" "}
                 booking.
               </p>
             </div>
             <div className="flex flex-col items-start gap-4 md:items-end">
-              <Button asChild size="lg" className="h-10 gap-2 px-4">
+              <Button
+                asChild
+                size="lg"
+                className="h-11 gap-2 rounded-full px-5 text-[12px] tracking-[0.05em]"
+              >
                 <Link href="/contact">
                   Send a brief
                   <ArrowRight size={14} weight="bold" data-icon="inline-end" />

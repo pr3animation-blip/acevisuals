@@ -1,6 +1,5 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr"
 
 export function SiteFooter() {
   return (
@@ -32,20 +31,8 @@ export function SiteFooter() {
             {/* Wordmark */}
             <div className="md:justify-self-center md:text-center">
               <h2 className="font-serif text-[44px] leading-[0.95] font-normal tracking-[-0.02em] sm:text-[56px] md:text-[72px] lg:text-[84px]">
-                Ace<span className="text-primary not-italic">·</span>
-                <em className="text-primary not-italic">Visuals</em>
+                Ace <em className="text-primary not-italic">Visuals</em>
               </h2>
-              <div className="text-ink-muted mt-3 flex items-center gap-3 font-mono text-[10px] tracking-[0.28em] uppercase md:justify-center">
-                <span
-                  aria-hidden
-                  className="hairline border-border block h-px w-8 border-t"
-                />
-                <span>Worlds, rendered frame by frame</span>
-                <span
-                  aria-hidden
-                  className="hairline border-border block h-px w-8 border-t"
-                />
-              </div>
             </div>
 
             {/* Contact lockup */}
@@ -57,35 +44,25 @@ export function SiteFooter() {
                 hello@acevisuals.studio
               </Link>
               <div className="mt-2 flex gap-3 md:justify-end">
-                <a href="#" className="hover:text-foreground transition-colors">
-                  IG
-                </a>
+                <span>IG</span>
                 <span aria-hidden className="opacity-40">/</span>
-                <a href="#" className="hover:text-foreground transition-colors">
-                  Vimeo
-                </a>
+                <span>Vimeo</span>
                 <span aria-hidden className="opacity-40">/</span>
-                <a href="#" className="hover:text-foreground transition-colors">
-                  Are.na
-                </a>
+                <span>Are.na</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Colophon row */}
-        <div className="text-ink-muted mt-5 grid grid-cols-2 items-center gap-3 font-mono text-[10px] tracking-[0.18em] uppercase md:grid-cols-3">
+        <div className="text-ink-muted mt-5 grid grid-cols-2 items-center gap-3 font-mono text-[10px] tracking-[0.18em] tabular-nums uppercase md:grid-cols-3">
           <span className="tracking-[0.18em]">© MMXXVI · Ace·Visuals</span>
           <span className="hidden justify-self-center md:inline">
             41.8°N / 87.6°W — In Production
           </span>
-          <a
-            href="#"
-            className="hover:text-foreground inline-flex items-center justify-end gap-1.5 transition-colors"
-          >
+          <span className="inline-flex items-center justify-end gap-1.5">
             Colophon
-            <ArrowUpRight size={11} weight="bold" />
-          </a>
+          </span>
         </div>
       </div>
     </footer>

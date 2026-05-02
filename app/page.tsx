@@ -59,25 +59,30 @@ export default function Page() {
 
         {/* Layer 2 — video. Source is a placeholder path; fallback still shows through until it lands. */}
         <video
+          aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover"
           autoPlay
           muted
-          loop
           playsInline
           preload="auto"
           poster="/media/brand/header-still.png"
         >
           <source
-            src="/Branding%20Assets/hero-mobile.mp4"
+            src="/Branding%20Assets/hero-video-section/mobile-h.mp4"
             type="video/mp4"
             media="(max-width: 767px)"
           />
           <source
-            src="/Branding%20Assets/hero-tablet.mp4"
+            src="/Branding%20Assets/hero-video-section/tablet-h-w.mp4"
             type="video/mp4"
-            media="(max-width: 1023px)"
+            media="(max-width: 819px)"
           />
-          <source src="/Branding%20Assets/Logo%20Reveal%2060fps%20-%20LONG_1.mp4" type="video/mp4" />
+          <source
+            src="/Branding%20Assets/hero-video-section/tablet-1280-h.mp4"
+            type="video/mp4"
+            media="(max-width: 1279px)"
+          />
+          <source src="/Branding%20Assets/hero-video-section/desktop-h.mp4" type="video/mp4" />
         </video>
 
         {/* Layer 3 — gradient floors for legibility + brand-tinted vignette */}
@@ -85,13 +90,14 @@ export default function Page() {
 
         {/* HERO CONTENT — bottom-left film-title placement */}
         <div className="absolute inset-x-0 bottom-0 z-20 px-5 pb-10 sm:px-7 sm:pb-12 md:px-10 md:pb-16 lg:px-14 lg:pb-20">
-          <h1 className="reveal reveal-d4 hero-headline font-serif text-[40px] leading-[0.95] font-normal tracking-[-0.03em] text-white sm:text-[52px] md:text-[64px] lg:text-[76px]">
+          <h1 className="reveal reveal-d4 hero-headline text-balance font-serif text-[40px] leading-[0.95] font-normal tracking-[-0.03em] text-white sm:text-[52px] md:text-[64px] lg:text-[76px]">
             Worlds,
+            <span className="sr-only"> </span>
             <br />
             <em className="text-primary not-italic">rendered</em>.
           </h1>
 
-          <p className="reveal reveal-d5 mt-5 max-w-[44ch] text-sm leading-[1.55] text-white/80 md:mt-6 md:text-[15px]">
+          <p className="reveal reveal-d5 mt-5 max-w-[44ch] text-pretty text-sm leading-[1.55] text-white/80 md:mt-6 md:text-[15px]">
             Product films, brand visuals, and cinematic CG — built
             end-to-end by one person with a six-year shot count.
           </p>
@@ -163,12 +169,13 @@ export default function Page() {
             <Eyebrow tone="primary" index="02">
               For brands &amp; founders
             </Eyebrow>
-            <h2 className="mt-4 font-serif text-[36px] leading-[1.02] font-normal tracking-[-0.03em] md:text-[52px]">
+            <h2 className="mt-4 text-balance font-serif text-[36px] leading-[1.02] font-normal tracking-[-0.03em] md:text-[52px]">
               Hiring a 3D generalist,
+              <span className="sr-only"> </span>
               <br />
               <em className="text-primary not-italic">translated</em>.
             </h2>
-            <p className="text-ink-muted mt-6 max-w-[60ch] text-sm leading-[1.7] md:text-[15px]">
+            <p className="text-ink-muted mt-6 max-w-[60ch] text-pretty text-sm leading-[1.7] md:text-[15px]">
               Most studios staff a project with a modeler, a lighter, a sim
               artist, an animator, and a comp artist — five people, five
               rates, five handoffs. A generalist does all of that. One brain
@@ -187,7 +194,7 @@ export default function Page() {
                 size="none"
                 data-reveal
                 style={{ "--stagger": i } as React.CSSProperties}
-                className="on-scroll relative flex h-full flex-col px-7 py-7! md:px-8 md:py-8!"
+                className="on-scroll relative flex h-full flex-col border-0 px-7 py-7! md:px-8 md:py-8!"
               >
                 <header>
                   <Eyebrow tone="primary">
