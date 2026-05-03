@@ -15,10 +15,10 @@ export const WORK_VIDEOS: WorkVideo[] = [
     span: "md:col-span-8 md:row-span-2",
   },
   {
-    slug: "godzilla",
-    title: "Godzilla",
-    meta: "Film · Sequence",
-    src: "https://pqr8hw3l69.ufs.sh/f/imAJ8rSJG1YPIQjiYzx7AQ7qojJsE6SCuNY2BRTmePri3nGt",
+    slug: "one-cryin-johnny",
+    title: "One Cryin' Johnny",
+    meta: "Music Video · Edit",
+    src: "https://pqr8hw3l69.ufs.sh/f/imAJ8rSJG1YPdkYyzK2N9ESuPapVhmHlTC2qryxJvDMi6OWQ",
     span: "md:col-span-4",
   },
   {
@@ -50,10 +50,10 @@ export const WORK_VIDEOS: WorkVideo[] = [
     span: "md:col-span-4",
   },
   {
-    slug: "one-cryin-johnny",
-    title: "One Cryin' Johnny",
-    meta: "Music Video · Edit",
-    src: "https://pqr8hw3l69.ufs.sh/f/imAJ8rSJG1YPdkYyzK2N9ESuPapVhmHlTC2qryxJvDMi6OWQ",
+    slug: "godzilla",
+    title: "Godzilla",
+    meta: "Film · Sequence",
+    src: "https://pqr8hw3l69.ufs.sh/f/imAJ8rSJG1YPIQjiYzx7AQ7qojJsE6SCuNY2BRTmePri3nGt",
     span: "md:col-span-12",
   },
 ]

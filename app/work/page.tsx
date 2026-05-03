@@ -117,8 +117,7 @@ export default function WorkPage() {
                   <div className="media-clip">
                     <LoopingVideo src={clip.src} />
                   </div>
-                  <div className="relative z-10 flex h-full flex-col justify-between p-3.5 md:p-4">
-                    <Badge variant="media">{clip.meta}</Badge>
+                  <div className="relative z-10 flex h-full flex-col justify-end p-3.5 md:p-4">
                     <div className="flex items-end justify-between gap-3">
                       <h3 className="tile-title hairline border-border w-fit rounded-sm border bg-card px-2 py-1 font-serif text-[14px] font-normal leading-[1.1] tracking-[-0.01em] md:text-[16px]">
                         {clip.title}
@@ -184,8 +183,7 @@ export default function WorkPage() {
                         />
                       </div>
                     </ViewTransition>
-                    <div className="relative z-10 flex h-full flex-col justify-between p-3.5 md:p-4">
-                      <Badge variant="media">{tile.meta}</Badge>
+                    <div className="relative z-10 flex h-full flex-col justify-end p-3.5 md:p-4">
                       <div className="flex items-end justify-between gap-3">
                         <h3
                           className={`tile-title hairline border-border w-fit rounded-sm border bg-card px-2 py-1 font-serif font-normal leading-[1.1] tracking-[-0.01em] ${
@@ -239,8 +237,7 @@ export default function WorkPage() {
                       className="object-cover"
                     />
                   </div>
-                  <figcaption className="relative z-10 flex h-full flex-col justify-between p-3">
-                    <Badge variant="media">{item.meta}</Badge>
+                  <figcaption className="relative z-10 flex h-full flex-col justify-end p-3">
                     <h4 className="tile-title hairline border-border w-fit rounded-sm border bg-card px-2 py-1 font-serif text-[13px] font-normal leading-[1.1] tracking-[-0.01em] md:text-[14px]">
                       {item.title}
                     </h4>
