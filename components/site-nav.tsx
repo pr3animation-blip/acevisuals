@@ -234,18 +234,30 @@ export function SiteNav() {
             {onContact ? (
               <Link
                 href="/"
-                className="site-nav-cta hidden items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] tracking-wide whitespace-nowrap sm:inline-flex"
+                className="site-nav-cta group/cta hidden items-center gap-2 rounded-full py-1 pr-3.5 pl-1 text-[11px] tracking-wide whitespace-nowrap sm:inline-flex"
               >
-                <ArrowLeft size={12} weight="bold" />
+                <span aria-hidden className="site-nav-cta-chip grid size-5 place-items-center rounded-full">
+                  <ArrowLeft
+                    size={10}
+                    weight="bold"
+                    className="transition-transform duration-[260ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover/cta:-translate-x-0.5"
+                  />
+                </span>
                 Back to portfolio
               </Link>
             ) : (
               <Link
                 href="/contact"
-                className="site-nav-cta hidden items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] tracking-wide whitespace-nowrap sm:inline-flex"
+                className="site-nav-cta group/cta hidden items-center gap-2 rounded-full py-1 pr-1 pl-3.5 text-[11px] tracking-wide whitespace-nowrap sm:inline-flex"
               >
                 Start a project
-                <ArrowRight size={12} weight="bold" />
+                <span aria-hidden className="site-nav-cta-chip grid size-5 place-items-center rounded-full">
+                  <ArrowRight
+                    size={10}
+                    weight="bold"
+                    className="transition-transform duration-[260ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover/cta:translate-x-0.5"
+                  />
+                </span>
               </Link>
             )}
             <button

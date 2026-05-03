@@ -249,6 +249,24 @@ html:has(.contact-stage),
     transform: translateX(-50%);
   }
 }
+/* Edge-fade mask — tokens fade in/out at the viewport edges instead of cutting
+   hard, so the band reads as a continuous filmstrip rather than a slab. */
+.marquee {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 6%,
+    black 94%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 6%,
+    black 94%,
+    transparent 100%
+  );
+}
 .marquee-track {
   display: inline-flex;
   white-space: nowrap;
@@ -712,6 +730,13 @@ html:has(.contact-stage),
 }
 .site-nav[data-mode="hero"] .site-nav-cta:hover { background: #fff; color: #000; }
 .site-nav[data-mode="hero"] .site-nav-cta:active { transform: scale(0.97); }
+.site-nav[data-mode="hero"] .site-nav-cta-chip {
+  background: rgba(255, 255, 255, 0.18);
+  transition: background-color 200ms var(--ease-out-strong);
+}
+.site-nav[data-mode="hero"] .site-nav-cta:hover .site-nav-cta-chip {
+  background: rgba(0, 0, 0, 0.12);
+}
 .site-nav[data-mode="hero"] .site-nav-menu-trigger {
   border: 1px solid rgba(255, 255, 255, 0.45);
   background: rgba(255, 255, 255, 0.05);
@@ -767,6 +792,13 @@ html:has(.contact-stage),
   border-color: var(--foreground);
 }
 .site-nav[data-mode="interior"] .site-nav-cta:active { transform: scale(0.97); }
+.site-nav[data-mode="interior"] .site-nav-cta-chip {
+  background: color-mix(in srgb, var(--foreground) 12%, transparent);
+  transition: background-color 200ms var(--ease-out-strong);
+}
+.site-nav[data-mode="interior"] .site-nav-cta:hover .site-nav-cta-chip {
+  background: color-mix(in srgb, var(--background) 18%, transparent);
+}
 .site-nav[data-mode="interior"] .site-nav-menu-trigger {
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--background) 50%, transparent);

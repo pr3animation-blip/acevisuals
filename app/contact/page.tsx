@@ -5,6 +5,7 @@ import Link from "next/link"
 import {
   ArrowLeft,
   CheckCircle,
+  InstagramLogo,
   PaperPlaneTilt,
 } from "@phosphor-icons/react/dist/ssr"
 import { Button } from "@/components/ui/button"
@@ -72,6 +73,27 @@ export default function ContactPage() {
               to land. Every brief is read by me — replies within{" "}
               <em className="text-foreground not-italic">forty-eight hours</em>.
             </p>
+
+            {/* Alt channels — direct line if the form feels too formal */}
+            <div className="text-ink-muted mt-8 flex flex-wrap items-center gap-x-4 gap-y-3 font-mono text-[10px] tracking-[0.22em] uppercase">
+              <span aria-hidden className="bg-border block h-px w-8" />
+              <span>Or reach me direct —</span>
+              <a
+                href="mailto:andrew@acevisuals.io"
+                className="link-u text-foreground hover:text-primary font-serif text-[13px] tracking-normal normal-case transition-colors"
+              >
+                andrew@acevisuals.io
+              </a>
+              <a
+                href="https://www.instagram.com/ace_visuals.3d/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram — @ace_visuals.3d"
+                className="hairline border-border text-foreground/75 hover:text-primary hover:border-primary/55 grid size-7 place-items-center rounded-full border transition-colors duration-[200ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+              >
+                <InstagramLogo size={12} weight="regular" aria-hidden />
+              </a>
+            </div>
           </header>
 
           <div className="lg:pl-6">
@@ -94,9 +116,12 @@ export default function ContactPage() {
                 </div>
                 <p className="text-ink-muted mt-6 max-w-[44ch] text-sm leading-[1.7]">
                   Your brief is in the queue. I&rsquo;ll write back from{" "}
-                  <span className="text-foreground">
-                    hello@acevisuals.studio
-                  </span>{" "}
+                  <a
+                    href="mailto:andrew@acevisuals.io"
+                    className="text-foreground hover:text-primary link-u transition-colors"
+                  >
+                    andrew@acevisuals.io
+                  </a>{" "}
                   within forty-eight hours — usually sooner. If it&rsquo;s
                   time-critical, mark the email subject{" "}
                   <span className="text-foreground font-mono text-[12px] tracking-[0.1em]">
@@ -272,9 +297,12 @@ export default function ContactPage() {
                     By sending you agree to a quick reply
                     <br />
                     from{" "}
-                    <span className="text-foreground">
-                      hello@acevisuals.studio
-                    </span>
+                    <a
+                      href="mailto:andrew@acevisuals.io"
+                      className="text-foreground hover:text-primary transition-colors"
+                    >
+                      andrew@acevisuals.io
+                    </a>
                   </p>
                   <Button
                     type="submit"

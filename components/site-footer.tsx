@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { InstagramLogo } from "@phosphor-icons/react/dist/ssr"
 
 export function SiteFooter() {
   return (
@@ -37,18 +38,22 @@ export function SiteFooter() {
 
             {/* Contact lockup */}
             <div className="text-ink-muted font-mono text-[10px] tracking-[0.22em] uppercase md:text-right">
-              <Link
-                href="/contact"
+              <a
+                href="mailto:andrew@acevisuals.io"
                 className="text-foreground hover:text-primary link-u font-serif text-base tracking-normal normal-case transition-colors"
               >
-                hello@acevisuals.studio
-              </Link>
-              <div className="mt-2 flex gap-3 md:justify-end">
-                <span>IG</span>
-                <span aria-hidden className="opacity-40">/</span>
-                <span>Vimeo</span>
-                <span aria-hidden className="opacity-40">/</span>
-                <span>Are.na</span>
+                andrew@acevisuals.io
+              </a>
+              <div className="mt-3 flex gap-3 md:justify-end">
+                <a
+                  href="https://www.instagram.com/ace_visuals.3d/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram — @ace_visuals.3d"
+                  className="hairline border-border text-foreground/75 hover:text-primary hover:border-primary/55 grid size-8 place-items-center rounded-full border transition-colors duration-[200ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                >
+                  <InstagramLogo size={14} weight="regular" aria-hidden />
+                </a>
               </div>
             </div>
           </div>
