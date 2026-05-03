@@ -25,7 +25,7 @@ export const WORK_VIDEOS: WorkVideo[] = [
     slug: "business-card",
     title: "Business Card",
     meta: "Identity · Loop",
-    src: "https://utfs.io/f/imAJ8rSJG1YPZBEduUiqHpA083hcYKWDofk2CMvmnbxV9OXl",
+    src: "https://pqr8hw3l69.ufs.sh/f/imAJ8rSJG1YPkjEWlFYULQWme7p2Kar6MfoDvOHB8k9Ii0Au",
     span: "md:col-span-4",
   },
   {

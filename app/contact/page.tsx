@@ -23,7 +23,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { haptic } from "@/lib/haptic/haptic"
 
 const CONTACT_VIDEO_URL =
-  "https://utfs.io/f/imAJ8rSJG1YPZBEduUiqHpA083hcYKWDofk2CMvmnbxV9OXl"
+  "https://pqr8hw3l69.ufs.sh/f/imAJ8rSJG1YPkjEWlFYULQWme7p2Kar6MfoDvOHB8k9Ii0Au"
 
 const legendClass =
   "text-ink-muted -ml-1 mb-5 inline-flex w-fit items-center gap-2 font-mono text-[10px] tracking-[0.22em] uppercase"
