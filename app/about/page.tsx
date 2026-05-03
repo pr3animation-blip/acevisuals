@@ -55,7 +55,7 @@ export default function AboutPage() {
       <div className="mx-auto w-full max-w-[1240px] px-3 py-4 sm:px-6 sm:py-6 md:px-10 md:py-8 lg:px-14 lg:py-10">
         <div className="px-5 pt-10 pb-10 sm:px-7 md:px-10 md:pt-14 md:pb-16 lg:px-14">
           {/* Header */}
-          <header className="reveal reveal-d2 pb-12 md:pb-16">
+          <header className="pb-12 md:pb-16">
             <Eyebrow tone="primary" index="03">
               Who I am
             </Eyebrow>
@@ -71,35 +71,28 @@ export default function AboutPage() {
           {/* Two-column body */}
           <section className="grid gap-10 py-2 md:grid-cols-[0.8fr_1.2fr] md:gap-16 md:py-6">
             <div className="relative">
-              <div data-reveal className="on-scroll">
-                <div data-parallax data-parallax-speed="0.05">
-                  <Link
-                    href="/work/tie"
-                    aria-label="View TIE-fighter look-dev project"
-                    className="hairline border-border bg-secondary group relative block aspect-[4/5] overflow-hidden rounded-md"
-                  >
-                    <div className="media-still">
-                      <Image
-                        src="/media/tie-fighter/back-low.webp"
-                        alt="Recent look-dev — Imperial TIE-fighter, rear three-quarter, running lights lit"
-                        fill
-                        sizes="(min-width: 1024px) 340px, 50vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-                        style={{ objectPosition: "center 55%" }}
-                      />
-                    </div>
-                    <Badge
-                      variant="media"
-                      className="absolute bottom-3 left-3"
-                    >
-                      Look-dev · 02
-                    </Badge>
-                  </Link>
+              <Link
+                href="/work/tie"
+                aria-label="View TIE-fighter look-dev project"
+                className="hairline border-border bg-secondary group relative block aspect-[4/5] overflow-hidden rounded-md"
+              >
+                <div className="media-still">
+                  <Image
+                    src="/media/tie-fighter/back-low.webp"
+                    alt="Recent look-dev — Imperial TIE-fighter, rear three-quarter, running lights lit"
+                    fill
+                    sizes="(min-width: 1024px) 340px, 50vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                    style={{ objectPosition: "center 55%" }}
+                  />
                 </div>
-              </div>
+                <Badge variant="media" className="absolute bottom-3 left-3">
+                  Look-dev · 02
+                </Badge>
+              </Link>
             </div>
 
-            <div data-reveal className="on-scroll">
+            <div>
               <p className="text-balance font-serif text-[30px] leading-[1.08] font-normal tracking-[-0.02em] md:text-[38px]">
                 I build{" "}
                 <em className="text-primary not-italic">
@@ -134,13 +127,8 @@ export default function AboutPage() {
               </p>
 
               <dl className="mt-8 grid grid-cols-2 gap-2.5 md:grid-cols-3">
-                {DISCIPLINES.map(([k, v], i) => (
-                  <div
-                    key={k}
-                    data-reveal
-                    style={{ "--stagger": i } as React.CSSProperties}
-                    className="on-scroll p-3"
-                  >
+                {DISCIPLINES.map(([k, v]) => (
+                  <div key={k} className="p-3">
                     <dt className="text-ink-muted font-mono text-[9px] tracking-[0.18em] uppercase">
                       {k}
                     </dt>
@@ -165,10 +153,7 @@ export default function AboutPage() {
           </section>
 
           {/* CTA strip */}
-          <section
-            data-reveal
-            className="on-scroll mt-20 grid gap-6 border-t border-border pt-12 md:mt-28 md:grid-cols-[1.2fr_0.8fr] md:items-end md:gap-12 md:pt-16"
-          >
+          <section className="mt-20 grid gap-6 border-t border-border pt-12 md:mt-28 md:grid-cols-[1.2fr_0.8fr] md:items-end md:gap-12 md:pt-16">
             <div>
               <Eyebrow tone="primary">Now booking</Eyebrow>
               <p className="mt-4 text-balance font-serif text-[36px] leading-[1.02] font-normal tracking-[-0.03em] md:text-[48px]">

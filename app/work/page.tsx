@@ -7,6 +7,7 @@ import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr"
 import { Badge } from "@/components/ui/badge"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { LoopingVideo } from "@/components/looping-video"
+import { SwipeHaptics } from "@/components/swipe-haptics"
 import { WORK_IMAGES, type WorkImage } from "@/lib/work-images"
 import { WORK_VIDEOS } from "@/lib/work-videos"
 
@@ -58,10 +59,11 @@ const CASE_STUDY_LAYOUT: { className: string; sizes: string }[] = [
 export default function WorkPage() {
   return (
     <main className="site-page relative min-h-svh bg-background text-foreground">
+      <SwipeHaptics />
       <div className="mx-auto w-full max-w-[1240px] px-3 py-4 sm:px-6 sm:py-6 md:px-10 md:py-8 lg:px-14 lg:py-10">
         <div className="px-5 pt-10 pb-10 sm:px-7 md:px-10 md:pt-14 md:pb-16 lg:px-14">
           {/* Page header */}
-          <header className="reveal reveal-d2 pb-12 md:pb-16">
+          <header className="pb-12 md:pb-16">
             <Eyebrow tone="primary" index="01">
               Work
             </Eyebrow>
@@ -80,10 +82,7 @@ export default function WorkPage() {
 
           {/* ---------- REEL ---------- */}
           <section>
-            <header
-              data-reveal
-              className="on-scroll flex items-baseline justify-between pb-6"
-            >
+            <header className="flex items-baseline justify-between pb-6">
               <div>
                 <Eyebrow tone="primary" index="01">
                   Reel
@@ -95,24 +94,19 @@ export default function WorkPage() {
               <Eyebrow>01 / Reel</Eyebrow>
             </header>
 
-            <p
-              data-reveal
-              className="text-ink-muted on-scroll max-w-[58ch] pb-8 text-pretty text-sm leading-[1.7] md:pb-10"
-            >
+            <p className="text-ink-muted max-w-[58ch] pb-8 text-pretty text-sm leading-[1.7] md:pb-10">
               Looping previews — muted by default. Click any frame to open
               the full piece in a new tab.
             </p>
 
             <div className="swipe-row flex snap-x snap-mandatory gap-3 overflow-x-auto md:grid md:grid-cols-12 md:gap-4 md:overflow-visible md:snap-none">
-              {WORK_VIDEOS.map((clip, i) => (
+              {WORK_VIDEOS.map((clip) => (
                 <a
                   key={clip.slug}
                   href={clip.src}
                   target="_blank"
                   rel="noopener noreferrer"
-                  data-reveal
-                  style={{ "--stagger": i } as React.CSSProperties}
-                  className={`on-scroll group hairline border-border bg-card relative aspect-video shrink-0 basis-[85%] snap-center overflow-hidden rounded-md md:basis-auto md:shrink md:snap-align-none ${clip.span}`}
+                  className={`group hairline border-border bg-card relative aspect-video shrink-0 basis-[85%] snap-center overflow-hidden rounded-md md:basis-auto md:shrink md:snap-align-none ${clip.span}`}
                 >
                   <div className="media-clip">
                     <LoopingVideo src={clip.src} />
@@ -137,10 +131,7 @@ export default function WorkPage() {
 
           {/* ---------- SELECTED WORK ---------- */}
           <section className="mt-20 md:mt-28">
-            <header
-              data-reveal
-              className="on-scroll flex items-baseline justify-between pb-6"
-            >
+            <header className="flex items-baseline justify-between pb-6">
               <h2 className="font-serif text-2xl font-normal tracking-[-0.02em] md:text-3xl">
                 Selected work
               </h2>
@@ -148,7 +139,7 @@ export default function WorkPage() {
             </header>
 
             <div className="swipe-row flex snap-x snap-mandatory gap-3 overflow-x-auto md:grid md:auto-rows-[130px] md:grid-cols-6 md:gap-4 md:overflow-visible md:snap-none">
-              {TILES.map((tile, i) => {
+              {TILES.map((tile) => {
                 const arrowSize =
                   tile.size === "lg"
                     ? "size-9"
@@ -159,9 +150,7 @@ export default function WorkPage() {
                   <Link
                     key={tile.slug}
                     href={`/work/image/${tile.slug}`}
-                    data-reveal
-                    style={{ "--stagger": i } as React.CSSProperties}
-                    className={`on-scroll group hairline border-border bg-card relative aspect-[4/3] shrink-0 basis-[85%] snap-center overflow-hidden rounded-md md:aspect-auto md:basis-auto md:shrink md:snap-align-none ${tile.span ?? ""}`}
+                    className={`group hairline border-border bg-card relative aspect-[4/3] shrink-0 basis-[85%] snap-center overflow-hidden rounded-md md:aspect-auto md:basis-auto md:shrink md:snap-align-none ${tile.span ?? ""}`}
                   >
                     <ViewTransition name={`image-${tile.slug}`}>
                       <div className="media-still">
@@ -213,20 +202,15 @@ export default function WorkPage() {
             </div>
 
             {/* Render index */}
-            <header
-              data-reveal
-              className="on-scroll mt-12 flex items-baseline justify-between pb-4 md:mt-16"
-            >
+            <header className="mt-12 flex items-baseline justify-between pb-4 md:mt-16">
               <Eyebrow>Render index</Eyebrow>
               <Eyebrow>a — e</Eyebrow>
             </header>
             <div className="swipe-row flex snap-x snap-proximity gap-3 overflow-x-auto md:grid md:grid-cols-5 md:gap-4 md:overflow-visible md:snap-none">
-              {RENDER_INDEX.map((item, i) => (
+              {RENDER_INDEX.map((item) => (
                 <figure
                   key={item.slug}
-                  data-reveal
-                  style={{ "--stagger": i } as React.CSSProperties}
-                  className="on-scroll hairline border-border bg-card relative aspect-[3/4] shrink-0 basis-[45%] snap-start overflow-hidden rounded-md md:basis-auto md:shrink md:snap-align-none"
+                  className="hairline border-border bg-card relative aspect-[3/4] shrink-0 basis-[45%] snap-start overflow-hidden rounded-md md:basis-auto md:shrink md:snap-align-none"
                 >
                   <div className="media-still">
                     <Image
@@ -248,10 +232,7 @@ export default function WorkPage() {
           </section>
 
           {/* Featured case study cross-link */}
-          <section
-            data-reveal
-            className="on-scroll mt-20 grid gap-10 py-14 md:mt-28 md:grid-cols-[1fr_1.35fr] md:gap-14 md:py-20"
-          >
+          <section className="mt-20 grid gap-10 py-14 md:mt-28 md:grid-cols-[1fr_1.35fr] md:gap-14 md:py-20">
             <div>
               <Eyebrow tone="primary" index="03">
                 Case study
@@ -281,11 +262,7 @@ export default function WorkPage() {
               </Link>
             </div>
 
-            <div
-              data-parallax
-              data-parallax-speed="0.06"
-              className="grid aspect-[4/3] grid-cols-[2fr_1fr] grid-rows-2 gap-2 md:gap-3"
-            >
+            <div className="grid aspect-[4/3] grid-cols-[2fr_1fr] grid-rows-2 gap-2 md:gap-3">
               {CASE_STUDY_GRID.map((image: WorkImage, i: number) => {
                 const layout = CASE_STUDY_LAYOUT[i] ?? CASE_STUDY_LAYOUT[1]
                 return (

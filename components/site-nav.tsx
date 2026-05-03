@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -9,11 +9,13 @@ import {
   ArrowRight,
   X as CloseIcon,
 } from "@phosphor-icons/react/dist/ssr"
+import { haptic } from "@/lib/haptic/haptic"
 
 type NavLink = { label: string; href: string }
 
 const NAV_LINKS: NavLink[] = [
   { label: "Work", href: "/work" },
+  { label: "Journal", href: "/blog" },
   { label: "About", href: "/about" },
 ]
 
@@ -22,19 +24,151 @@ function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`)
 }
 
+// Scroll past 60% of viewport height before the home nav compacts into the
+// floating pill. The hero is full-svh, so this fires as the hero is sliding
+// out and content is sliding in — the morph reads as a chrome handoff, not
+// an unrelated nav animation.
+const HOME_MORPH_THRESHOLD_VH = 0.6
+// Matches the pill's background-color / border-color / box-shadow transition
+// duration in globals.css so the chrome morph and the lockup/CTA glide land
+// on the same frame.
+const MORPH_DURATION_MS = 320
+const MORPH_EASING = "cubic-bezier(0.2, 0, 0.1, 1)"
+
 export function SiteNav() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   // Hero mode = transparent overlay over the homepage video.
-  // Interior mode = blurred pill over content on every other route.
-  const mode: "hero" | "interior" = pathname === "/" ? "hero" : "interior"
+  // Interior mode = blurred pill over content on every other route, and on
+  // the home page once the user has scrolled past the hero.
+  const isHome = pathname === "/"
+  const mode: "hero" | "interior" = isHome && !scrolled ? "hero" : "interior"
   const onContact = pathname === "/contact"
 
-  // Close mobile menu on route change.
+  // FLIP refs — the lockup (mark + wordmark) and the right-side cluster
+  // (CTA + burger) are the elements whose horizontal position changes
+  // dramatically between hero (edge-to-edge) and interior (centered pill).
+  // Capture pre-mode-change bounds and slide them from old → new with
+  // hardware-accelerated transforms so the layout snap reads as a glide.
+  const lockupRef = useRef<HTMLAnchorElement | null>(null)
+  const rightRef = useRef<HTMLDivElement | null>(null)
+  const prevBoundsRef = useRef<{ lockup?: DOMRect; right?: DOMRect }>({})
+  const lastModeRef = useRef(mode)
+
+  // Close mobile menu on route change. Reset scrolled flag when we leave
+  // home so reentering / starts in hero mode again.
   useEffect(() => {
     setOpen(false)
-  }, [pathname])
+    if (!isHome) setScrolled(false)
+  }, [pathname, isHome])
+
+  // Scroll listener — only attached on the home page. rAF-throttled so it
+  // never fires more than once per frame.
+  useEffect(() => {
+    if (!isHome) return
+    let raf = 0
+    const evaluate = () => {
+      raf = 0
+      const threshold = window.innerHeight * HOME_MORPH_THRESHOLD_VH
+      const next = window.scrollY > threshold
+      setScrolled((prev) => {
+        if (prev === next) return prev
+        // Capture FIRST (current) bounds before React re-renders into LAST.
+        prevBoundsRef.current = {
+          lockup: lockupRef.current?.getBoundingClientRect(),
+          right: rightRef.current?.getBoundingClientRect(),
+        }
+        return next
+      })
+    }
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(evaluate)
+    }
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", onScroll, { passive: true })
+    return () => {
+      if (raf) cancelAnimationFrame(raf)
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
+    }
+  }, [isHome])
+
+  // Play the FLIP after layout commits with the new mode. Reads BOTH
+  // elements' bounds in one batch before starting any animation, so the
+  // lockup and the CTA cluster are guaranteed to glide on the exact same
+  // timeline. Honors reduced motion by bailing without animating.
+  useLayoutEffect(() => {
+    if (lastModeRef.current === mode) return
+    lastModeRef.current = mode
+
+    const captured = prevBoundsRef.current
+    prevBoundsRef.current = {}
+    if (!captured.lockup && !captured.right) return
+
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return
+    }
+
+    type FlipPair = { el: HTMLElement; dx: number; dy: number }
+    // Anchor matters: the lockup's visible content sits at its bounding-box
+    // LEFT edge, so we anchor by left. The right cluster is `justify-end`
+    // and its width changes between modes (full 1fr column in hero → auto
+    // in interior), so anchoring by left would let the CTA visually snap
+    // 250px+ on the layout switch. Anchoring by right edge keeps the CTA
+    // visually pinned through the glide, matching the lockup's tempo.
+    const targets: {
+      el: HTMLElement | null
+      before?: DOMRect
+      anchor: "left" | "right"
+    }[] = [
+      { el: lockupRef.current, before: captured.lockup, anchor: "left" },
+      { el: rightRef.current, before: captured.right, anchor: "right" },
+    ]
+
+    // Read all AFTER bounds first so layout is flushed once.
+    const pairs: FlipPair[] = []
+    for (const { el, before, anchor } of targets) {
+      if (!el || !before) continue
+      const after = el.getBoundingClientRect()
+      const dx =
+        anchor === "right" ? before.right - after.right : before.left - after.left
+      const dy = before.top - after.top
+      if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) continue
+      pairs.push({ el, dx, dy })
+    }
+    if (pairs.length === 0) return
+
+    // Start every animation at the same timeline origin so they share an
+    // identical start time, duration, and easing — no sub-frame drift.
+    const startTime = document.timeline.currentTime
+    for (const { el, dx, dy } of pairs) {
+      el.style.willChange = "transform"
+      const anim = el.animate(
+        [
+          { transform: `translate(${dx}px, ${dy}px)` },
+          { transform: "translate(0, 0)" },
+        ],
+        {
+          duration: MORPH_DURATION_MS,
+          easing: MORPH_EASING,
+          fill: "both",
+          composite: "replace",
+        },
+      )
+      if (typeof startTime === "number") anim.startTime = startTime
+      anim.finished
+        .catch(() => {})
+        .finally(() => {
+          el.style.willChange = ""
+        })
+    }
+  }, [mode])
 
   // Lock scroll when mobile menu open.
   useEffect(() => {
@@ -55,7 +189,11 @@ export function SiteNav() {
       >
         <div className="site-nav-pill">
           {/* Mark + wordmark */}
-          <Link href="/" className="nav-lockup group flex items-center gap-3">
+          <Link
+            ref={lockupRef}
+            href="/"
+            className="nav-lockup group flex items-center gap-3"
+          >
             <span className="relative block h-7 w-7 md:h-8 md:w-8">
               <Image
                 src="/media/brand/logo-transparent.png"
@@ -92,7 +230,7 @@ export function SiteNav() {
           </ul>
 
           {/* CTA */}
-          <div className="flex items-center justify-end gap-2.5">
+          <div ref={rightRef} className="flex items-center justify-end gap-2.5">
             {onContact ? (
               <Link
                 href="/"
@@ -115,7 +253,10 @@ export function SiteNav() {
               aria-label="Open menu"
               aria-expanded={open}
               data-open={open ? "" : undefined}
-              onClick={() => setOpen(true)}
+              onClick={() => {
+                haptic(10)
+                setOpen(true)
+              }}
               className="nav-burger site-nav-menu-trigger hairline relative grid h-9 w-9 place-items-center rounded-full md:hidden"
             >
               <span aria-hidden className="nav-burger-bar nav-burger-bar-top" />
@@ -135,7 +276,10 @@ export function SiteNav() {
           type="button"
           aria-label="Close menu"
           className="site-nav-sheet-scrim"
-          onClick={() => setOpen(false)}
+          onClick={() => {
+            haptic(8)
+            setOpen(false)
+          }}
           tabIndex={open ? 0 : -1}
         />
         <div className="site-nav-sheet-panel" role="dialog" aria-modal="true">
@@ -146,7 +290,10 @@ export function SiteNav() {
             <button
               type="button"
               aria-label="Close menu"
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                haptic(8)
+                setOpen(false)
+              }}
               className="hairline border-border grid h-9 w-9 place-items-center rounded-full"
             >
               <CloseIcon size={16} weight="bold" />
@@ -161,6 +308,7 @@ export function SiteNav() {
                     href={l.href}
                     aria-current={active ? "page" : undefined}
                     data-active={active ? "" : undefined}
+                    onClick={() => haptic(8)}
                     className="site-nav-sheet-link block font-serif text-[44px] leading-[0.95] tracking-[-0.02em]"
                   >
                     {l.label}
@@ -173,6 +321,7 @@ export function SiteNav() {
                 href="/contact"
                 aria-current={onContact ? "page" : undefined}
                 data-active={onContact ? "" : undefined}
+                onClick={() => haptic(8)}
                 className="site-nav-sheet-link block font-serif text-[44px] leading-[0.95] tracking-[-0.02em]"
               >
                 Contact

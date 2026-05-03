@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { haptic } from "@/lib/haptic/haptic"
 
 const CONTACT_VIDEO_URL =
   "https://utfs.io/f/imAJ8rSJG1YPZBEduUiqHpA083hcYKWDofk2CMvmnbxV9OXl"
@@ -34,6 +35,7 @@ export default function ContactPage() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    haptic([12, 40, 18])
     setSubmitted(true)
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" })
@@ -55,10 +57,8 @@ export default function ContactPage() {
           </span>
 
           <header className="relative pb-12 md:pb-16">
-            <Eyebrow tone="primary" className="reveal reveal-d2">
-              Contact · 04 / Brief
-            </Eyebrow>
-            <h1 className="reveal reveal-d3 mt-5 font-serif text-[44px] leading-[0.95] font-normal tracking-[-0.04em] sm:text-[60px] md:text-[72px] lg:text-[88px]">
+            <Eyebrow tone="primary">Contact · 04 / Brief</Eyebrow>
+            <h1 className="mt-5 font-serif text-[44px] leading-[0.95] font-normal tracking-[-0.04em] sm:text-[60px] md:text-[72px] lg:text-[88px]">
               Send the
               <br />
               <em className="text-primary not-italic">brief</em>.
@@ -66,7 +66,7 @@ export default function ContactPage() {
                 / Frame 0001
               </span>
             </h1>
-            <p className="reveal reveal-d4 text-ink-muted mt-7 max-w-[58ch] text-sm leading-[1.7] md:text-base">
+            <p className="text-ink-muted mt-7 max-w-[58ch] text-sm leading-[1.7] md:text-base">
               Three minutes of your time, a project in motion. Tell me what
               you&rsquo;re building, what it should feel like, and when it needs
               to land. Every brief is read by me — replies within{" "}
@@ -79,8 +79,7 @@ export default function ContactPage() {
               <Card
                 variant="hairline"
                 size="none"
-                data-reveal
-                className="on-scroll relative p-8 md:p-12"
+                className="form-swap-in relative p-8 md:p-12"
               >
                 <Eyebrow tone="primary">Brief received · ack</Eyebrow>
                 <div className="mt-5 flex items-start gap-4">
@@ -146,9 +145,12 @@ export default function ContactPage() {
                 </div>
               </Card>
             ) : (
-              <form onSubmit={onSubmit} className="flex flex-col gap-12">
+              <form
+                onSubmit={onSubmit}
+                className="form-swap-in flex flex-col gap-12"
+              >
                 {/* SECTION 01 — IDENTITY */}
-                <FieldSet data-reveal className="on-scroll border-0">
+                <FieldSet className="border-0">
                   <FieldLegend className={legendClass}>
                     <span className="text-primary">01</span>
                     <span aria-hidden className="opacity-50">
@@ -213,7 +215,7 @@ export default function ContactPage() {
                 </FieldSet>
 
                 {/* SECTION 02 — BRIEF */}
-                <FieldSet data-reveal className="on-scroll border-0">
+                <FieldSet className="border-0">
                   <FieldLegend className={legendClass}>
                     <span className="text-primary">02</span>
                     <span aria-hidden className="opacity-50">
@@ -265,10 +267,7 @@ export default function ContactPage() {
                 </FieldSet>
 
                 {/* SUBMIT */}
-                <div
-                  data-reveal
-                  className="on-scroll border-border flex flex-col items-stretch gap-4 border-t pt-7 sm:flex-row sm:items-center sm:justify-between"
-                >
+                <div className="border-border flex flex-col items-stretch gap-4 border-t pt-7 sm:flex-row sm:items-center sm:justify-between">
                   <p className="text-ink-muted max-w-[36ch] font-mono text-[10px] leading-[1.65] tracking-[0.12em] uppercase">
                     By sending you agree to a quick reply
                     <br />

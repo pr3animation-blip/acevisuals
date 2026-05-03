@@ -252,7 +252,7 @@ html:has(.contact-stage),
 .marquee-track {
   display: inline-flex;
   white-space: nowrap;
-  animation: marquee 34s linear infinite;
+  animation: marquee 240s linear infinite;
   will-change: transform;
 }
 .marquee:hover .marquee-track {
@@ -674,11 +674,14 @@ html:has(.contact-stage),
   align-items: center;
   gap: 1rem;
   width: 100%;
+  /* All chrome transitions run at one tempo so the lockup and CTA cluster
+     (FLIP-animated in site-nav.tsx) land on the same frame as the pill's
+     background, border, padding, and shadow. */
   transition:
-    width 380ms var(--ease-out-strong),
-    max-width 380ms var(--ease-out-strong),
-    margin 380ms var(--ease-out-strong),
-    padding 380ms var(--ease-out-strong),
+    width 320ms var(--ease-out-strong),
+    max-width 320ms var(--ease-out-strong),
+    margin 320ms var(--ease-out-strong),
+    padding 320ms var(--ease-out-strong),
     background-color 320ms var(--ease-out-strong),
     border-color 320ms var(--ease-out-strong),
     box-shadow 320ms var(--ease-out-strong);
@@ -877,6 +880,22 @@ html:has(.contact-stage),
 /* Push interior pages clear of the fixed nav */
 .site-page { padding-top: 88px; }
 @media (min-width: 768px) { .site-page { padding-top: 104px; } }
+
+/* ------- Form swap — gentle crossfade between brief form and ack card.
+   Used by app/contact when submission flips state. @starting-style handles
+   the enter without JS; the unmount is instant since React removes the node. */
+.form-swap-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 320ms var(--ease-out-strong),
+    transform 320ms var(--ease-out-strong);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
 
 /* ------- View transitions: shared-element image morph ------- */
 /* Ease + duration for the work-grid → image-detail page transition.
