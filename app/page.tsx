@@ -9,7 +9,7 @@ import { Eyebrow } from "@/components/ui/eyebrow"
 import { WORK_IMAGES } from "@/lib/work-images"
 
 const REEL_VIDEO_URL =
-  "https://pqr8hw3l69.ufs.sh/f/imAJ8rSJG1YPVAkkpzKRMLmY6K4T3UANqCbkWonGg8pajlBI"
+  "https://pqr8hw3l69.ufs.sh/f/imAJ8rSJG1YPC4rV0XWuwilxGK4t1ZPgXMervqCjBVE02SUT"
 
 const SELECTED_SLUGS = [
   "tie-front",
@@ -172,59 +172,63 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ---------- TRANSLATED — plain-English value for non-industry buyers ---------- */}
-      <section className="bg-background py-20 md:py-28">
+      {/* ---------- REEL — single 16:9 cinematic card with auto-loop ---------- */}
+      <section className="bg-background relative overflow-hidden py-20 md:py-28">
         <div className="mx-auto w-full max-w-[1240px] px-5 sm:px-7 md:px-10 lg:px-14">
-          <header data-reveal className="on-scroll mb-10 max-w-[60ch] md:mb-14">
-            <Eyebrow tone="primary" index="02">
-              For brands &amp; founders
-            </Eyebrow>
-            <h2 className="mt-4 text-balance font-serif text-[36px] leading-[1.02] font-normal tracking-[-0.03em] md:text-[52px]">
-              Hiring a 3D generalist,
-              <span className="sr-only"> </span>
-              <br />
-              <em className="text-primary not-italic">translated</em>.
-            </h2>
-            <p className="text-ink-muted mt-6 max-w-[60ch] text-pretty text-sm leading-[1.7] md:text-[15px]">
-              Most studios staff a project with a modeler, a lighter, a sim
-              artist, an animator, and a comp artist — five people, five
-              rates, five handoffs. A generalist does all of that. One brain
-              on the shot, from blank file to finished frame. Faster
-              turnarounds, fewer middlemen, lower budget — without the look
-              you&rsquo;d get from a stock asset or a freelancer who only
-              knows half the pipeline.
-            </p>
+          <header
+            data-reveal
+            className="on-scroll mb-8 flex items-end justify-between gap-6 md:mb-12"
+          >
+            <div>
+              <Eyebrow tone="primary" index="02">
+                Reel
+              </Eyebrow>
+              <h2 className="mt-4 text-balance font-serif text-[36px] leading-[1.02] font-normal tracking-[-0.03em] md:text-[52px]">
+                Ninety seconds, end to{" "}
+                <em className="text-primary not-italic">end</em>.
+              </h2>
+            </div>
+            <span className="text-ink-muted hidden shrink-0 pb-2 font-mono text-[10px] tracking-[0.22em] uppercase sm:inline-flex">
+              MMXXVI · selected cuts
+            </span>
           </header>
 
-          <div className="grid gap-4 md:grid-cols-3 md:gap-5">
-            {TRANSLATED_CARDS.map((c, i) => (
-              <div
-                key={c.k}
-                data-reveal
-                style={{ "--stagger": i } as React.CSSProperties}
-                className="on-scroll bezel-shell group/bezel relative rounded-[2rem] p-1.5"
-              >
-                <article className="bezel-core relative flex h-full flex-col rounded-[1.625rem] px-6 py-7 md:px-7 md:py-8">
-                  <header>
-                    <Eyebrow tone="primary">
-                      {`0${i + 1} · ${c.k}`}
-                    </Eyebrow>
-                    <h3 className="mt-4 min-h-[2lh] font-serif text-[24px] leading-[1.1] font-normal tracking-[-0.02em] md:text-[26px]">
-                      {c.t}
-                    </h3>
-                  </header>
-                  <p className="text-ink-muted flex-1 pt-5 pb-6 text-sm leading-[1.65]">
-                    {c.body}
-                  </p>
-                  <footer>
-                    <p className="text-foreground min-h-[2lh] font-mono text-[10px] leading-[1.55] tracking-[0.18em] uppercase">
-                      {c.outcome}
-                    </p>
-                  </footer>
-                </article>
-              </div>
-            ))}
-          </div>
+          <Link
+            href="/work"
+            data-reveal
+            className="on-scroll group reel-frame relative block aspect-video overflow-hidden rounded-md ring-1 ring-white/10"
+            aria-label="Browse the work — selected reel"
+          >
+            <video
+              src={REEL_VIDEO_URL}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.015]"
+              aria-hidden="true"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/0 to-black/40"
+            />
+
+<div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 px-5 pb-5 md:px-8 md:pb-7">
+              <p className="font-serif text-[20px] leading-[1.05] font-normal tracking-[-0.02em] text-white md:text-[26px]">
+                Selected work —{" "}
+                <em className="text-primary not-italic">2024 / 2026</em>
+              </p>
+              <span className="font-mono text-[10px] tracking-[0.22em] uppercase text-white/70">
+                Watch
+                <ArrowUpRight
+                  size={12}
+                  weight="bold"
+                  className="ml-1.5 inline-block"
+                />
+              </span>
+            </div>
+          </Link>
         </div>
       </section>
 
@@ -317,63 +321,59 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ---------- REEL — single 16:9 cinematic card with auto-loop ---------- */}
-      <section className="bg-background relative overflow-hidden pb-20 md:pb-28">
+      {/* ---------- TRANSLATED — plain-English value for non-industry buyers ---------- */}
+      <section className="bg-background pb-20 md:pb-28">
         <div className="mx-auto w-full max-w-[1240px] px-5 sm:px-7 md:px-10 lg:px-14">
-          <header
-            data-reveal
-            className="on-scroll mb-8 flex items-end justify-between gap-6 md:mb-12"
-          >
-            <div>
-              <Eyebrow tone="primary" index="04">
-                Reel
-              </Eyebrow>
-              <h2 className="mt-4 text-balance font-serif text-[36px] leading-[1.02] font-normal tracking-[-0.03em] md:text-[52px]">
-                Ninety seconds, end to{" "}
-                <em className="text-primary not-italic">end</em>.
-              </h2>
-            </div>
-            <span className="text-ink-muted hidden shrink-0 pb-2 font-mono text-[10px] tracking-[0.22em] uppercase sm:inline-flex">
-              MMXXVI · selected cuts
-            </span>
+          <header data-reveal className="on-scroll mb-10 max-w-[60ch] md:mb-14">
+            <Eyebrow tone="primary" index="04">
+              For brands &amp; founders
+            </Eyebrow>
+            <h2 className="mt-4 text-balance font-serif text-[36px] leading-[1.02] font-normal tracking-[-0.03em] md:text-[52px]">
+              Hiring a 3D generalist,
+              <span className="sr-only"> </span>
+              <br />
+              <em className="text-primary not-italic">translated</em>.
+            </h2>
+            <p className="text-ink-muted mt-6 max-w-[60ch] text-pretty text-sm leading-[1.7] md:text-[15px]">
+              Most studios staff a project with a modeler, a lighter, a sim
+              artist, an animator, and a comp artist — five people, five
+              rates, five handoffs. A generalist does all of that. One brain
+              on the shot, from blank file to finished frame. Faster
+              turnarounds, fewer middlemen, lower budget — without the look
+              you&rsquo;d get from a stock asset or a freelancer who only
+              knows half the pipeline.
+            </p>
           </header>
 
-          <Link
-            href="/work"
-            data-reveal
-            className="on-scroll group reel-frame relative block aspect-video overflow-hidden rounded-md ring-1 ring-white/10"
-            aria-label="Browse the work — selected reel"
-          >
-            <video
-              src={REEL_VIDEO_URL}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="metadata"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.015]"
-              aria-hidden="true"
-            />
-            <div
-              aria-hidden
-              className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/0 to-black/40"
-            />
-
-<div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 px-5 pb-5 md:px-8 md:pb-7">
-              <p className="font-serif text-[20px] leading-[1.05] font-normal tracking-[-0.02em] text-white md:text-[26px]">
-                Selected work —{" "}
-                <em className="text-primary not-italic">2024 / 2026</em>
-              </p>
-              <span className="font-mono text-[10px] tracking-[0.22em] uppercase text-white/70">
-                Watch
-                <ArrowUpRight
-                  size={12}
-                  weight="bold"
-                  className="ml-1.5 inline-block"
-                />
-              </span>
-            </div>
-          </Link>
+          <div className="grid gap-4 md:grid-cols-3 md:gap-5">
+            {TRANSLATED_CARDS.map((c, i) => (
+              <div
+                key={c.k}
+                data-reveal
+                style={{ "--stagger": i } as React.CSSProperties}
+                className="on-scroll bezel-shell group/bezel relative rounded-[2rem] p-1.5"
+              >
+                <article className="bezel-core relative flex h-full flex-col rounded-[1.625rem] px-6 py-7 md:px-7 md:py-8">
+                  <header>
+                    <Eyebrow tone="primary">
+                      {`0${i + 1} · ${c.k}`}
+                    </Eyebrow>
+                    <h3 className="mt-4 min-h-[2lh] font-serif text-[24px] leading-[1.1] font-normal tracking-[-0.02em] md:text-[26px]">
+                      {c.t}
+                    </h3>
+                  </header>
+                  <p className="text-ink-muted flex-1 pt-5 pb-6 text-sm leading-[1.65]">
+                    {c.body}
+                  </p>
+                  <footer>
+                    <p className="text-foreground min-h-[2lh] font-mono text-[10px] leading-[1.55] tracking-[0.18em] uppercase">
+                      {c.outcome}
+                    </p>
+                  </footer>
+                </article>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </main>
