@@ -160,25 +160,43 @@ export default function Page() {
             pill centered beneath); inline row centered at sm; bottom-left film-
             title placement at md+. */}
         <div className="absolute inset-x-0 bottom-0 z-20 px-5 pb-10 sm:px-7 sm:pb-12 md:px-10 md:pb-16 lg:px-14 lg:pb-20">
-          <div className="reveal reveal-d5 flex flex-col items-center gap-3 sm:flex-row sm:flex-nowrap sm:justify-center md:justify-start md:gap-4">
+          <div className="reveal reveal-d5 flex flex-col items-center gap-3 sm:flex-row sm:flex-nowrap sm:justify-center md:justify-start md:gap-3">
+            {/* Primary — fill + chipped trailing arrow (button-in-button) */}
             <Button
               asChild
               size="lg"
-              className="h-11 w-full justify-center gap-2 rounded-full px-5 text-[12px] tracking-[0.05em] sm:w-auto"
+              className="h-11 w-full justify-between gap-3 rounded-full py-1 pr-1.5 pl-5 text-[12px] tracking-[0.05em] sm:w-auto"
             >
               <Link href="/work">
                 See my work
-                <ArrowUpRight size={14} weight="bold" />
+                <span
+                  aria-hidden
+                  className="grid size-8 place-items-center rounded-full bg-white/15 transition-colors duration-[200ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover/button:bg-white/25"
+                >
+                  <ArrowUpRight
+                    size={12}
+                    weight="bold"
+                    className="transition-transform duration-[260ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover/button:translate-x-0.5 group-hover/button:-translate-y-px"
+                  />
+                </span>
               </Link>
             </Button>
+
+            {/* Secondary — demoted: h-9 outline, plain inline arrow */}
             <Link
               href="/contact"
-              className="hairline inline-flex h-11 w-full items-center justify-center gap-2 rounded-full border border-white/30 bg-white/5 px-4 font-mono text-[10px] tracking-[0.22em] text-white/85 uppercase backdrop-blur-sm transition-colors hover:border-white/60 hover:bg-white/10 hover:text-white sm:w-auto"
+              className="hairline group/secondary inline-flex h-9 w-full items-center justify-center gap-2 rounded-full border border-white/25 px-3.5 font-mono text-[10px] tracking-[0.22em] text-white/80 uppercase backdrop-blur-sm transition-colors duration-[200ms] ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-white/55 hover:text-white sm:w-auto"
             >
               Start a project
-              <ArrowUpRight size={12} weight="bold" />
+              <ArrowUpRight
+                size={10}
+                weight="bold"
+                className="transition-transform duration-[260ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover/secondary:translate-x-0.5 group-hover/secondary:-translate-y-px"
+              />
             </Link>
-            <span className="hairline hidden h-11 items-center gap-2 rounded-full border border-white/20 px-4 font-mono text-[10px] tracking-[0.22em] text-white/70 uppercase backdrop-blur-sm sm:inline-flex">
+
+            {/* Status — informational, matches secondary weight */}
+            <span className="hairline hidden h-9 items-center gap-2 rounded-full border border-white/20 px-3.5 font-mono text-[10px] tracking-[0.22em] text-white/65 uppercase backdrop-blur-sm sm:inline-flex">
               <span aria-hidden className="hero-status-dot block h-1.5 w-1.5 rounded-full bg-primary" />
               Booking Q2
             </span>
