@@ -3,7 +3,7 @@ import Link from "next/link"
 
 export function SiteFooter() {
   return (
-    <footer className="site-footer relative mt-12 px-3 pb-4 sm:px-6 sm:pb-6 md:mt-16 md:px-10 md:pb-8 lg:px-14 lg:pb-10">
+    <footer className="site-footer relative mt-12 px-5 pb-4 sm:px-7 sm:pb-6 md:mt-16 md:px-10 md:pb-8 lg:px-14 lg:pb-10">
       <div className="mx-auto w-full max-w-[1240px]">
         {/* Brand plate — end-card */}
         <div

@@ -1,8 +1,38 @@
 import Image from "next/image"
 import Link from "next/link"
+import type { Metadata } from "next"
 import { ArrowLeft, ArrowUpRight } from "@phosphor-icons/react/dist/ssr"
 import { Badge } from "@/components/ui/badge"
 import { Eyebrow } from "@/components/ui/eyebrow"
+
+export const metadata: Metadata = {
+  title: "TIE-fighter — A Personal Study in Mass & Menace",
+  description:
+    "Full CG modeling, look-dev, and lighting on the Imperial TIE-fighter. Every panel hand-placed, every louver traced to reference, rendered against a void.",
+  alternates: { canonical: "/work/tie" },
+  openGraph: {
+    type: "article",
+    title: "TIE-fighter Case Study — Ace Visuals",
+    description:
+      "Full CG modeling, look-dev, and lighting on the Imperial TIE-fighter — a personal study in mass and menace.",
+    url: "/work/tie",
+    images: [
+      {
+        url: "/media/tie-fighter/front.webp",
+        width: 1600,
+        height: 900,
+        alt: "TIE-fighter — frontal hero render, shallow key light on the cockpit",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TIE-fighter Case Study — Ace Visuals",
+    description:
+      "Full CG modeling, look-dev, and lighting on the Imperial TIE-fighter — a personal study in mass and menace.",
+    images: ["/media/tie-fighter/front.webp"],
+  },
+}
 
 const STILLS = [
   {

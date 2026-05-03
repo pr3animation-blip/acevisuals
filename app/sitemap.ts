@@ -1,9 +1,11 @@
 import type { MetadataRoute } from "next"
+import { WORK_IMAGES } from "@/lib/work-images"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://acevisuals.io"
   const now = new Date()
-  return [
+
+  const staticEntries: MetadataRoute.Sitemap = [
     {
       url: `${base}/`,
       lastModified: now,
@@ -35,4 +37,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
   ]
+
+  const workImageEntries: MetadataRoute.Sitemap = WORK_IMAGES.map((img) => ({
+    url: `${base}/work/image/${img.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }))
+
+  return [...staticEntries, ...workImageEntries]
 }

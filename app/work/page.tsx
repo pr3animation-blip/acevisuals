@@ -1,126 +1,59 @@
+/// <reference types="react/canary" />
+import { ViewTransition } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import type { Metadata } from "next"
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr"
 import { Badge } from "@/components/ui/badge"
 import { Eyebrow } from "@/components/ui/eyebrow"
+import { LoopingVideo } from "@/components/looping-video"
+import { WORK_IMAGES, type WorkImage } from "@/lib/work-images"
+import { WORK_VIDEOS } from "@/lib/work-videos"
 
-type Tile = {
-  title: string
-  meta: string
-  src: string
-  alt: string
-  span: string
-  size: "sm" | "md" | "lg"
-  position?: string
-  href?: string
+export const metadata: Metadata = {
+  title: "Selected Work — Product Films, Brand Visuals & Cinematic CG",
+  description:
+    "A working index of motion, product, and brand work — looping reel cuts, render-index stills, and a TIE-fighter case study. End-to-end CG by one operator.",
+  alternates: { canonical: "/work" },
+  openGraph: {
+    type: "website",
+    title: "Selected Work — Ace Visuals",
+    description:
+      "Reel cuts, product films, and cinematic stills. End-to-end CG by one operator.",
+    url: "/work",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Selected Work — Ace Visuals",
+    description:
+      "Reel cuts, product films, and cinematic stills. End-to-end CG by one operator.",
+  },
 }
 
-type RenderItem = {
-  title: string
-  meta: string
-  src: string
-  alt: string
-}
-
-const RENDER_INDEX: RenderItem[] = [
-  {
-    title: "Splash Bottle",
-    meta: "a · Sim",
-    src: "/media/products/bottle.webp",
-    alt: "Insulated bottle suspended in frozen water splash",
-  },
-  {
-    title: "Berry Cola",
-    meta: "b · Product",
-    src: "/media/products/can.webp",
-    alt: "Energy drink can with berries in mid-air",
-  },
-  {
-    title: "Noir Lipstick",
-    meta: "c · Beauty",
-    src: "/media/products/lipstick.webp",
-    alt: "Deep red lipstick, angled bevel, water beads",
-  },
-  {
-    title: "Keycap · 01",
-    meta: "d · Product",
-    src: "/media/products/keypop.webp",
-    alt: "Mechanical keycap lifted out of a keyboard in a purple halo",
-  },
-  {
-    title: "Resin Figure",
-    meta: "e · Study",
-    src: "/media/products/other-card.webp",
-    alt: "Translucent blue resin figurine on stone",
-  },
-]
-
-const TILES: Tile[] = [
-  {
-    title: "Imperial TIE-Fighter",
-    meta: "Personal · Film",
-    src: "/media/tie-fighter/front.webp",
-    alt: "Imperial TIE-fighter, frontal hero render, shallow key light on the cockpit",
-    span: "col-span-6 row-span-3 md:col-span-4",
-    size: "lg",
-    position: "center 40%",
-    href: "/work/tie",
-  },
-  {
-    title: "Piper Archer TX",
-    meta: "Brand Film · Piper",
-    src: "/media/aviation/piper-reveal.webp",
-    alt: "Piper Archer TX — nose badge lit by a single slash of studio light",
-    span: "col-span-3 row-span-2 md:col-span-2",
-    size: "md",
-  },
-  {
-    title: "Opus — Eau de Parfum",
-    meta: "Product · Render",
-    src: "/media/products/perfume-frame.webp",
-    alt: "Amber perfume bottle suspended in amber liquid beads",
-    span: "col-span-3 row-span-2 md:col-span-2",
-    size: "md",
-  },
-  {
-    title: "Monitor 01 — Colorway",
-    meta: "Product · Look-dev",
-    src: "/media/products/headphones.webp",
-    alt: "Over-ear headphones in four colorways, studio grey sweep",
-    span: "col-span-3 row-span-1 md:col-span-2",
-    size: "sm",
-    position: "center 45%",
-  },
-  {
-    title: "Writing Set",
-    meta: "Product · R&D",
-    src: "/media/products/pens.webp",
-    alt: "Ring of pens converging, one central stylus in hero light",
-    span: "col-span-3 row-span-1 md:col-span-2",
-    size: "sm",
-  },
-  {
-    title: "Archer TX — Hangar",
-    meta: "Aviation · Editorial",
-    src: "/media/aviation/field-0003.webp",
-    alt: "Piper Archer TX fuselage detail with the Archer TX wordmark",
-    span: "col-span-6 row-span-2 md:col-span-3",
-    size: "md",
-    position: "center 55%",
-  },
-  {
-    title: "TIE · Wing Detail",
-    meta: "Study · Personal",
-    src: "/media/tie-fighter/wing.webp",
-    alt: "TIE-fighter wing hub from behind, solar panel geometry",
-    span: "col-span-6 row-span-1 md:col-span-3",
-    size: "sm",
-    position: "center 40%",
-    href: "/work/tie",
-  },
-]
+const TILES = WORK_IMAGES.filter((img) => img.section === "tiles")
+const RENDER_INDEX = WORK_IMAGES.filter(
+  (img) => img.section === "render-index",
+)
+const CASE_STUDY_GRID = WORK_IMAGES.filter(
+  (img) => img.section === "case-study-grid",
+)
 
 const CASE_STUDY_TAGS = ["Modeling", "Look-dev", "Lighting", "Compositing"]
+
+const CASE_STUDY_LAYOUT: { className: string; sizes: string }[] = [
+  {
+    className: "row-span-2",
+    sizes: "(min-width: 1024px) 480px, 60vw",
+  },
+  {
+    className: "",
+    sizes: "(min-width: 1024px) 240px, 30vw",
+  },
+  {
+    className: "",
+    sizes: "(min-width: 1024px) 240px, 30vw",
+  },
+]
 
 export default function WorkPage() {
   return (
@@ -145,8 +78,66 @@ export default function WorkPage() {
             </p>
           </header>
 
-          {/* ---------- SELECTED WORK ---------- */}
+          {/* ---------- REEL ---------- */}
           <section>
+            <header
+              data-reveal
+              className="on-scroll flex items-baseline justify-between pb-6"
+            >
+              <div>
+                <Eyebrow tone="primary" index="01">
+                  Reel
+                </Eyebrow>
+                <h2 className="mt-3 font-serif text-2xl font-normal tracking-[-0.02em] md:text-3xl">
+                  Motion <em className="text-primary not-italic">cuts</em>.
+                </h2>
+              </div>
+              <Eyebrow>01 / Reel</Eyebrow>
+            </header>
+
+            <p
+              data-reveal
+              className="text-ink-muted on-scroll max-w-[58ch] pb-8 text-pretty text-sm leading-[1.7] md:pb-10"
+            >
+              Looping previews — muted by default. Click any frame to open
+              the full piece in a new tab.
+            </p>
+
+            <div className="swipe-row flex snap-x snap-mandatory gap-3 overflow-x-auto md:grid md:grid-cols-12 md:gap-4 md:overflow-visible md:snap-none">
+              {WORK_VIDEOS.map((clip, i) => (
+                <a
+                  key={clip.slug}
+                  href={clip.src}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-reveal
+                  style={{ "--stagger": i } as React.CSSProperties}
+                  className={`on-scroll group hairline border-border bg-card relative aspect-video shrink-0 basis-[85%] snap-center overflow-hidden rounded-md md:basis-auto md:shrink md:snap-align-none ${clip.span}`}
+                >
+                  <div className="media-clip">
+                    <LoopingVideo src={clip.src} />
+                  </div>
+                  <div className="relative z-10 flex h-full flex-col justify-between p-3.5 md:p-4">
+                    <Badge variant="media">{clip.meta}</Badge>
+                    <div className="flex items-end justify-between gap-3">
+                      <h3 className="tile-title hairline border-border w-fit rounded-sm border bg-card px-2 py-1 font-serif text-[14px] font-normal leading-[1.1] tracking-[-0.01em] md:text-[16px]">
+                        {clip.title}
+                      </h3>
+                      <span
+                        aria-hidden
+                        className="bg-background/85 hairline border-border grid size-7 shrink-0 place-items-center rounded-full border text-white opacity-70 transition-opacity duration-200 group-hover:opacity-100"
+                      >
+                        <ArrowUpRight size={12} weight="bold" />
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+
+          {/* ---------- SELECTED WORK ---------- */}
+          <section className="mt-20 md:mt-28">
             <header
               data-reveal
               className="on-scroll flex items-baseline justify-between pb-6"
@@ -154,14 +145,11 @@ export default function WorkPage() {
               <h2 className="font-serif text-2xl font-normal tracking-[-0.02em] md:text-3xl">
                 Selected work
               </h2>
-              <Eyebrow>01 / Index</Eyebrow>
+              <Eyebrow>02 / Index</Eyebrow>
             </header>
 
-            <div className="grid auto-rows-[110px] grid-cols-6 gap-3 md:auto-rows-[130px] md:gap-4">
+            <div className="swipe-row flex snap-x snap-mandatory gap-3 overflow-x-auto md:grid md:auto-rows-[130px] md:grid-cols-6 md:gap-4 md:overflow-visible md:snap-none">
               {TILES.map((tile, i) => {
-                const Wrapper: React.ElementType = tile.href ? Link : "div"
-                const props = tile.href ? { href: tile.href } : {}
-                const interactive = Boolean(tile.href)
                 const arrowSize =
                   tile.size === "lg"
                     ? "size-9"
@@ -169,36 +157,38 @@ export default function WorkPage() {
                       ? "size-7"
                       : "size-6"
                 return (
-                  <Wrapper
-                    key={tile.title}
-                    {...props}
+                  <Link
+                    key={tile.slug}
+                    href={`/work/image/${tile.slug}`}
                     data-reveal
                     style={{ "--stagger": i } as React.CSSProperties}
-                    className={`on-scroll ${interactive ? "group" : ""} hairline border-border bg-card relative overflow-hidden rounded-md ${tile.span}`}
+                    className={`on-scroll group hairline border-border bg-card relative aspect-[4/3] shrink-0 basis-[85%] snap-center overflow-hidden rounded-md md:aspect-auto md:basis-auto md:shrink md:snap-align-none ${tile.span ?? ""}`}
                   >
-                    <div className="media-still">
-                      <Image
-                        src={tile.src}
-                        alt={tile.alt}
-                        fill
-                        sizes={
-                          tile.size === "lg"
-                            ? "(min-width: 1024px) 780px, 100vw"
-                            : "(min-width: 1024px) 380px, 50vw"
-                        }
-                        className="object-cover"
-                        style={
-                          tile.position
-                            ? { objectPosition: tile.position }
-                            : undefined
-                        }
-                      />
-                    </div>
+                    <ViewTransition name={`image-${tile.slug}`}>
+                      <div className="media-still">
+                        <Image
+                          src={tile.src}
+                          alt={tile.alt}
+                          fill
+                          sizes={
+                            tile.size === "lg"
+                              ? "(min-width: 1024px) 780px, 100vw"
+                              : "(min-width: 1024px) 380px, 50vw"
+                          }
+                          className="object-cover"
+                          style={
+                            tile.position
+                              ? { objectPosition: tile.position }
+                              : undefined
+                          }
+                        />
+                      </div>
+                    </ViewTransition>
                     <div className="relative z-10 flex h-full flex-col justify-between p-3.5 md:p-4">
                       <Badge variant="media">{tile.meta}</Badge>
                       <div className="flex items-end justify-between gap-3">
                         <h3
-                          className={`${interactive ? "tile-title" : ""} hairline border-border w-fit rounded-sm border bg-card px-2 py-1 font-serif font-normal leading-[1.1] tracking-[-0.01em] ${
+                          className={`tile-title hairline border-border w-fit rounded-sm border bg-card px-2 py-1 font-serif font-normal leading-[1.1] tracking-[-0.01em] ${
                             tile.size === "lg"
                               ? "text-[22px] md:text-[26px]"
                               : tile.size === "md"
@@ -208,17 +198,18 @@ export default function WorkPage() {
                         >
                           {tile.title}
                         </h3>
-                        {interactive ? (
-                          <span
-                            aria-hidden
-                            className={`text-primary bg-background/85 hairline border-border grid ${arrowSize} shrink-0 place-items-center rounded-full border opacity-70 transition-opacity duration-200 group-hover:opacity-100`}
-                          >
-                            <ArrowUpRight size={tile.size === "lg" ? 14 : 12} weight="bold" />
-                          </span>
-                        ) : null}
+                        <span
+                          aria-hidden
+                          className={`bg-background/85 hairline border-border grid ${arrowSize} shrink-0 place-items-center rounded-full border text-white opacity-70 transition-opacity duration-200 group-hover:opacity-100`}
+                        >
+                          <ArrowUpRight
+                            size={tile.size === "lg" ? 14 : 12}
+                            weight="bold"
+                          />
+                        </span>
                       </div>
                     </div>
-                  </Wrapper>
+                  </Link>
                 )
               })}
             </div>
@@ -231,13 +222,13 @@ export default function WorkPage() {
               <Eyebrow>Render index</Eyebrow>
               <Eyebrow>a — e</Eyebrow>
             </header>
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-5 md:gap-4">
+            <div className="swipe-row flex snap-x snap-proximity gap-3 overflow-x-auto md:grid md:grid-cols-5 md:gap-4 md:overflow-visible md:snap-none">
               {RENDER_INDEX.map((item, i) => (
-                <div
-                  key={item.src}
+                <figure
+                  key={item.slug}
                   data-reveal
                   style={{ "--stagger": i } as React.CSSProperties}
-                  className="on-scroll hairline border-border bg-card relative aspect-[3/4] overflow-hidden rounded-md"
+                  className="on-scroll hairline border-border bg-card relative aspect-[3/4] shrink-0 basis-[45%] snap-start overflow-hidden rounded-md md:basis-auto md:shrink md:snap-align-none"
                 >
                   <div className="media-still">
                     <Image
@@ -248,13 +239,13 @@ export default function WorkPage() {
                       className="object-cover"
                     />
                   </div>
-                  <div className="relative z-10 flex h-full flex-col justify-between p-3">
+                  <figcaption className="relative z-10 flex h-full flex-col justify-between p-3">
                     <Badge variant="media">{item.meta}</Badge>
-                    <h4 className="hairline border-border w-fit rounded-sm border bg-card px-2 py-1 font-serif text-[13px] font-normal leading-[1.1] tracking-[-0.01em] md:text-[14px]">
+                    <h4 className="tile-title hairline border-border w-fit rounded-sm border bg-card px-2 py-1 font-serif text-[13px] font-normal leading-[1.1] tracking-[-0.01em] md:text-[14px]">
                       {item.title}
                     </h4>
-                  </div>
-                </div>
+                  </figcaption>
+                </figure>
               ))}
             </div>
           </section>
@@ -265,7 +256,7 @@ export default function WorkPage() {
             className="on-scroll mt-20 grid gap-10 py-14 md:mt-28 md:grid-cols-[1fr_1.35fr] md:gap-14 md:py-20"
           >
             <div>
-              <Eyebrow tone="primary" index="02">
+              <Eyebrow tone="primary" index="03">
                 Case study
               </Eyebrow>
               <h3 className="mt-3 text-balance font-serif text-[28px] leading-[1.05] font-normal tracking-[-0.02em] md:text-[34px]">
@@ -293,47 +284,34 @@ export default function WorkPage() {
               </Link>
             </div>
 
-            <Link href="/work/tie" className="group block">
-              <div
-                data-parallax
-                data-parallax-speed="0.06"
-                className="grid aspect-[4/3] grid-cols-[2fr_1fr] grid-rows-2 gap-2 md:gap-3"
-              >
-                <div className="hairline border-border relative row-span-2 overflow-hidden rounded-md">
-                  <div className="media-still">
-                    <Image
-                      src="/media/tie-fighter/wide.webp"
-                      alt="TIE-fighter — classic wide establishing shot"
-                      fill
-                      sizes="(min-width: 1024px) 480px, 60vw"
-                      className="object-cover"
-                    />
-                  </div>
-                </div>
-                <div className="hairline border-border relative overflow-hidden rounded-md">
-                  <div className="media-still">
-                    <Image
-                      src="/media/tie-fighter/back-high.webp"
-                      alt="TIE-fighter — three-quarter rear, high angle"
-                      fill
-                      sizes="(min-width: 1024px) 240px, 30vw"
-                      className="object-cover"
-                    />
-                  </div>
-                </div>
-                <div className="hairline border-border relative overflow-hidden rounded-md">
-                  <div className="media-still">
-                    <Image
-                      src="/media/tie-fighter/front-alt.webp"
-                      alt="TIE-fighter — cockpit detail, profile"
-                      fill
-                      sizes="(min-width: 1024px) 240px, 30vw"
-                      className="object-cover"
-                    />
-                  </div>
-                </div>
-              </div>
-            </Link>
+            <div
+              data-parallax
+              data-parallax-speed="0.06"
+              className="grid aspect-[4/3] grid-cols-[2fr_1fr] grid-rows-2 gap-2 md:gap-3"
+            >
+              {CASE_STUDY_GRID.map((image: WorkImage, i: number) => {
+                const layout = CASE_STUDY_LAYOUT[i] ?? CASE_STUDY_LAYOUT[1]
+                return (
+                  <Link
+                    key={image.slug}
+                    href={`/work/image/${image.slug}`}
+                    className={`group hairline border-border relative overflow-hidden rounded-md ${layout.className}`}
+                  >
+                    <ViewTransition name={`image-${image.slug}`}>
+                      <div className="media-still">
+                        <Image
+                          src={image.src}
+                          alt={image.alt}
+                          fill
+                          sizes={layout.sizes}
+                          className="object-cover"
+                        />
+                      </div>
+                    </ViewTransition>
+                  </Link>
+                )
+              })}
+            </div>
           </section>
         </div>
       </div>

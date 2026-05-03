@@ -157,6 +157,24 @@
   --chart-5: oklch(0.46 0.24 268);
 }
 
+/* Contact — pitch-black "screening room".
+   Scoped via :has() so the floating nav's backdrop-blur color
+   matches the page beneath it. The page itself also gets the override
+   directly so it works even in browsers that bail on :has(). */
+html:has(.contact-stage),
+.contact-stage {
+  --background: oklch(0 0 0);
+  --paper: #000;
+  --card: oklch(0.13 0 0);
+  --popover: oklch(0.13 0 0);
+  --secondary: oklch(0.19 0 0);
+  --muted: oklch(0.16 0 0);
+  --accent: oklch(0.16 0 0);
+  --border: oklch(1 0 0 / 0.14);
+  --input: oklch(1 0 0 / 0.10);
+  --line: rgba(242, 238, 228, 0.18);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -281,6 +299,56 @@
 .dark .media-still::after {
   mix-blend-mode: normal;
   opacity: 0.8;
+}
+
+/* ------- Mobile swipe carousel — hide scrollbar across browsers.
+   Used by work-page Reel + Selected-work tile lists on small viewports.
+   The snap-x/snap-mandatory utilities come from Tailwind on the same node;
+   this just suppresses the visible scrollbar so the row reads as a clean
+   editorial filmstrip. Desktop reverts to grid via md: utilities. */
+.swipe-row {
+  scrollbar-width: none;
+}
+.swipe-row::-webkit-scrollbar {
+  display: none;
+}
+
+/* ------- Video clip media — hover-to-play frames ------- */
+.media-clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--foreground) 4%, transparent);
+}
+.media-clip video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 700ms var(--ease-out-strong);
+  will-change: transform;
+}
+.group:hover .media-clip video {
+  transform: scale(1.02);
+}
+.media-clip::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 55%,
+    rgba(12, 10, 22, 0.32) 100%
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+}
+.dark .media-clip::after {
+  mix-blend-mode: normal;
+  opacity: 0.7;
 }
 
 .thumb-halo {
@@ -419,16 +487,48 @@
   transform: translateY(-2px);
 }
 
-/* Tile title plate — paper chip that sits on top of the thumb */
+/* Tile title plate — frosted chip that sits on top of the thumb.
+   backdrop-blur keeps it readable over both dark video frames and lighter renders. */
 .tile-title {
-  background: var(--card);
+  background: color-mix(in srgb, var(--background) 55%, transparent);
   color: var(--ink);
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
   transition:
     transform 400ms var(--ease-out-strong),
     background 200ms ease;
 }
 .group:hover .tile-title {
   transform: translateY(-3px);
+}
+
+/* ------- Double-Bezel ("Doppelrand") — outer shell + inner core.
+   Cards read as machined hardware sitting on the page rather than flat panes. */
+.bezel-shell {
+  background: color-mix(in srgb, var(--foreground) 4%, transparent);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--foreground) 8%, transparent);
+  transition:
+    background 380ms var(--ease-out-strong),
+    box-shadow 380ms var(--ease-out-strong),
+    transform 380ms var(--ease-out-strong);
+}
+.bezel-shell:hover {
+  background: color-mix(in srgb, var(--foreground) 6%, transparent);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--foreground) 14%, transparent);
+  transform: translateY(-2px);
+}
+.bezel-core {
+  background: var(--card);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #ffffff 8%, transparent),
+    0 10px 28px -18px rgba(0, 0, 0, 0.5);
+}
+.dark .bezel-core {
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #ffffff 6%, transparent),
+    0 14px 36px -22px rgba(0, 0, 0, 0.7);
 }
 
 /* Smooth hover for link underlines */
@@ -476,6 +576,18 @@
 .on-scroll.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* On back-nav / revisit, skip entrance animations so the view-transition
+   morph is the only motion the user perceives. */
+[data-instant-reveals] .reveal {
+  opacity: 1 !important;
+  animation: none !important;
+}
+[data-instant-reveals] .on-scroll {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
 }
 
 /* ------- Cinematic hero — full-bleed video title card ------- */
@@ -546,17 +658,41 @@
 /* ------- Floating site nav (layout-mounted, two visual modes) ------- */
 .site-nav {
   transition:
-    background-color 220ms var(--ease-out-strong),
-    color 220ms var(--ease-out-strong),
-    border-color 220ms var(--ease-out-strong);
+    color 220ms var(--ease-out-strong);
   padding-bottom: 14px;
 }
 @media (min-width: 768px) {
   .site-nav { padding-bottom: 18px; }
 }
 
+/* Inner pill — the actual visual frame.
+   Hero mode spreads it edge to edge, transparent;
+   interior mode collapses it to a centered floating glass capsule. */
+.site-nav-pill {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  transition:
+    width 380ms var(--ease-out-strong),
+    max-width 380ms var(--ease-out-strong),
+    margin 380ms var(--ease-out-strong),
+    padding 380ms var(--ease-out-strong),
+    background-color 320ms var(--ease-out-strong),
+    border-color 320ms var(--ease-out-strong),
+    box-shadow 320ms var(--ease-out-strong);
+}
+@media (min-width: 768px) {
+  .site-nav-pill {
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1.5rem;
+  }
+}
+
 /* Hero mode — transparent overlay over the homepage video */
 .site-nav[data-mode="hero"] { color: #fff; }
+.site-nav[data-mode="hero"] .site-nav-pill { background: transparent; }
 .site-nav[data-mode="hero"] .site-nav-rule { background: rgba(255, 255, 255, 0.3); }
 .site-nav[data-mode="hero"] .site-nav-caption { color: rgba(255, 255, 255, 0.55); }
 .site-nav[data-mode="hero"] .site-nav-links { color: rgba(255, 255, 255, 0.7); }
@@ -583,13 +719,29 @@
 }
 .site-nav[data-mode="hero"] .site-nav-menu-trigger:active { transform: scale(0.97); }
 
-/* Interior mode — floating, backdrop-blurred bar */
-.site-nav[data-mode="interior"] {
+/* Interior mode — floating glass capsule, content-hugging, centered */
+.site-nav[data-mode="interior"] { color: var(--foreground); }
+.site-nav[data-mode="interior"] .site-nav-pill {
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0.5rem 0.625rem 0.5rem 1.125rem;
+  gap: 1rem;
   background: color-mix(in srgb, var(--background) 70%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 9999px;
   backdrop-filter: blur(14px) saturate(1.5);
   -webkit-backdrop-filter: blur(14px) saturate(1.5);
-  border-bottom: 1px solid var(--border);
-  color: var(--foreground);
+  box-shadow:
+    0 12px 32px -16px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+@media (min-width: 768px) {
+  .site-nav[data-mode="interior"] .site-nav-pill {
+    grid-template-columns: auto auto auto;
+    gap: 1.75rem;
+    padding: 0.5rem 0.625rem 0.5rem 1.25rem;
+  }
 }
 .site-nav[data-mode="interior"] .site-nav-mark { filter: invert(1); }
 .dark .site-nav[data-mode="interior"] .site-nav-mark { filter: none; }
@@ -597,26 +749,60 @@
 .site-nav[data-mode="interior"] .site-nav-caption { color: var(--ink-muted); }
 .site-nav[data-mode="interior"] .site-nav-links { color: var(--ink-muted); }
 .site-nav[data-mode="interior"] .site-nav-cta {
-  border: 1px solid var(--foreground);
+  border: 1px solid color-mix(in srgb, var(--foreground) 70%, transparent);
   color: var(--foreground);
   background: transparent;
   transition:
     background-color 200ms var(--ease-out-strong),
     color 200ms var(--ease-out-strong),
+    border-color 200ms var(--ease-out-strong),
     transform 160ms var(--ease-out-strong);
 }
 .site-nav[data-mode="interior"] .site-nav-cta:hover {
   background: var(--foreground);
   color: var(--background);
+  border-color: var(--foreground);
 }
 .site-nav[data-mode="interior"] .site-nav-cta:active { transform: scale(0.97); }
 .site-nav[data-mode="interior"] .site-nav-menu-trigger {
   border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--background) 60%, transparent);
+  background: color-mix(in srgb, var(--background) 50%, transparent);
   color: var(--foreground);
   transition: transform 160ms var(--ease-out-strong);
 }
 .site-nav[data-mode="interior"] .site-nav-menu-trigger:active { transform: scale(0.97); }
+
+/* ------- Hand-built hamburger morph (two bars → X) ------- */
+.nav-burger-bar {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  width: 14px;
+  height: 1.5px;
+  background-color: currentColor;
+  border-radius: 1px;
+  transform-origin: center;
+  transition: transform 380ms cubic-bezier(0.32, 0.72, 0, 1);
+  will-change: transform;
+}
+.nav-burger-bar-top {
+  transform: translate(-50%, calc(-50% - 4px));
+}
+.nav-burger-bar-bottom {
+  transform: translate(-50%, calc(-50% + 4px));
+}
+.nav-burger[data-open] .nav-burger-bar-top {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.nav-burger[data-open] .nav-burger-bar-bottom {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-burger-bar {
+    transition-duration: 1ms !important;
+  }
+}
 
 /* Center links — underline-on-hover, persistent for active */
 .site-nav-link {
@@ -692,8 +878,23 @@
 .site-page { padding-top: 88px; }
 @media (min-width: 768px) { .site-page { padding-top: 104px; } }
 
+/* ------- View transitions: shared-element image morph ------- */
+/* Ease + duration for the work-grid → image-detail page transition.
+   Names are applied inline via style={{ viewTransitionName: `image-${slug}` }}
+   on both source thumbnail and destination hero. */
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 420ms;
+  animation-timing-function: var(--ease-out-strong);
+}
+
 /* ------- Accessibility: reduced motion ------- */
 @media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
   html {
     scroll-behavior: auto;
   }

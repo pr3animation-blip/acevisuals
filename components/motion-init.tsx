@@ -7,11 +7,34 @@ export function MotionInit() {
   const pathname = usePathname()
   useEffect(() => {
     const mql = window.matchMedia("(prefers-reduced-motion: reduce)")
-    if (mql.matches) {
+    const seenKey = `seen:${pathname}`
+    let revisiting = false
+    try {
+      revisiting = sessionStorage.getItem(seenKey) === "1"
+    } catch {}
+
+    if (mql.matches || revisiting) {
+      // On back-nav / revisit, skip the entrance cascade so only the
+      // shared-element morph plays. Suppress the .reveal keyframe and the
+      // .on-scroll transition for this paint, then drop the flag so future
+      // interactions animate normally.
+      document.documentElement.dataset.instantReveals = "1"
       document
         .querySelectorAll<HTMLElement>("[data-reveal]")
         .forEach((el) => el.classList.add("is-visible"))
-      return
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          delete document.documentElement.dataset.instantReveals
+        })
+      })
+      try {
+        sessionStorage.setItem(seenKey, "1")
+      } catch {}
+      if (mql.matches) return
+    } else {
+      try {
+        sessionStorage.setItem(seenKey, "1")
+      } catch {}
     }
 
     const io = new IntersectionObserver(
